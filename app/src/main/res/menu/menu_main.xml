@@ -2,9 +2,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.moolair.studytimer.MainActivity">
+
+<!--    YJ: Mar 28, 2020
+        This is a setting bar. I disabled it because I don't want the user to use it for now.
+        Maybe, it will be back if necessary.-->
+<!--    <item-->
+<!--        android:id="@+id/action_settings"-->
+<!--        android:orderInCategory="100"-->
+<!--        android:title="@string/action_settings"-->
+<!--        app:showAsAction="always" />-->
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/action_add"
+        android:orderInCategory="10"
+        android:title="@string/add_timer"
+        android:icon="@android:drawable/ic_input_add"
+        app:showAsAction="always" />
+
 </menu>
