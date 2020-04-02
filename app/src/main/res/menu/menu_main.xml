@@ -13,11 +13,10 @@
 <!--        app:showAsAction="always" />-->
 
     <item
-        android:id="@+id/action_add"
-        android:orderInCategory="10"
-        android:title="@string/add_timer"
-        android:onClick=""
+        android:id="@+id/add_timer"
         android:icon="@android:drawable/ic_input_add"
+        android:orderInCategory="100"
+        android:title="@string/add_timer"
         app:showAsAction="always" />
 
 </menu>
