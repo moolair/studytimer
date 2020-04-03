@@ -2,9 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/layout_id"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:padding="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/subject"
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/add_subject"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/subjectItem"
+                android:layout_below="@+id/subject"
+                android:hint="@string/subjectHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+<!--            Timer setup comes in here-->
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>
