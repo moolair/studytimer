@@ -9,27 +9,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:padding="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/subject"
-                android:layout_width="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/add_subject"
-                android:layout_height="wrap_content"/>
-
-            <EditText
-                android:id="@+id/subjectItem"
-                android:layout_below="@+id/subject"
-                android:hint="@string/subjectHint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-<!--            Timer setup comes in here-->
-
-        </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="25dp">
+
+        <!--            Timer setup comes in here
+        YJ - April 4, 2020
+        todo: needs to fix the order of the variables -->
+        <TextView
+            android:id="@+id/subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/muli"
+            android:textFontWeight="400"
+            android:textStyle="bold"
+            android:text="@string/add_subject" />
+
+        <EditText
+            android:id="@+id/subjectItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/subject"
+            android:fontFamily="@font/muli"
+            android:hint="@string/subjectHint" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/subjectItem"
+            android:text="@string/saveTitle" />
+
+    </RelativeLayout>
 </LinearLayout>
