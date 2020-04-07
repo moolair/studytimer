@@ -1,3 +1,4 @@
 <resources>
     <dimen name="mb_margin">16dp</dimen>
+    <dimen name="cat_slider_left_margin">16dp</dimen>
 </resources>

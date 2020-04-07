@@ -6,11 +6,7 @@
 <!--    YJ: Mar 28, 2020
         This is a setting bar. I disabled it because I don't want the user to use it for now.
         Maybe, it will be back if necessary.-->
-<!--    <item-->
-<!--        android:id="@+id/action_settings"-->
-<!--        android:orderInCategory="100"-->
-<!--        android:title="@string/action_settings"-->
-<!--        app:showAsAction="always" />-->
+
 
     <item
         android:id="@+id/add_timer"
@@ -18,5 +14,13 @@
         android:orderInCategory="100"
         android:title="@string/add_timer"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@android:drawable/ic_menu_zoom"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="always" />
+
 
 </menu>

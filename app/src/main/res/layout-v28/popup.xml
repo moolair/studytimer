@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_id"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:padding="25dp">
+
+            <!--            Timer setup comes in here
+        YJ - April 4, 2020
+        todo: needs to fix the order of the variables -->
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/ScrollHour"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:scrollbars="vertical" />-->
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/ScrollMinute"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_toEndOf="@+id/ScrollHour"-->
+<!--                android:scrollbars="vertical" />-->
+
+
+<!--            <TextView-->
+<!--                android:id="@+id/subject"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:fontFamily="@font/muli"-->
+<!--                android:text="@string/add_subject"-->
+<!--                android:textFontWeight="400"-->
+<!--                android:textStyle="bold" />-->
+            <com.google.android.material.slider.Slider
+                android:id="@+id/scrollHour"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/cat_slider_left_margin"
+                android:layout_marginStart="@dimen/cat_slider_left_margin"
+                android:scrollbarSize="4dp"
+                android:valueFrom="0"
+                android:valueTo="60"
+                android:verticalScrollbarPosition="defaultPosition"/>
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/scrollMinute"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/cat_slider_left_margin"
+                android:layout_marginStart="@dimen/cat_slider_left_margin"
+                android:scrollbarSize="4dp"
+                android:valueFrom="0"
+                android:valueTo="60"
+                android:verticalScrollbarPosition="defaultPosition"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/subject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="@string/subjectHint">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/subjectItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/muli"
+                    android:importantForAutofill="no"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/saveItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/saveTitle" />
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
