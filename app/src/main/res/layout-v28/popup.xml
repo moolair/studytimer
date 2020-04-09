@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/layout_id"
@@ -11,8 +12,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_gravity="center"
+            android:layout_height="wrap_content"
             android:padding="25dp">
 
             <!--            Timer setup comes in here
@@ -43,44 +43,44 @@
 <!--                android:text="@string/add_subject"-->
 <!--                android:textFontWeight="400"-->
 <!--                android:textStyle="bold" />-->
-            <com.google.android.material.slider.Slider
-                android:id="@+id/scrollHour"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:scrollbars="horizontal"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/cat_slider_left_margin"
-                android:layout_marginStart="@dimen/cat_slider_left_margin"
-                android:scrollbarSize="4dp"
-                android:valueFrom="0"
-                android:valueTo="60"
-                android:verticalScrollbarPosition="defaultPosition"/>
+<!--todo: slider might need to be changed. Cardview might need to be removed.
+            Find the relation between relativeLayout vs linearLayout
+            Try downloading Android Cookbook-->
+<!--            <com.google.android.material.slider.Slider-->
+<!--                android:id="@+id/scrollHour"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_above="@+id/scrollMinute"-->
+<!--                android:layout_marginTop="@dimen/cat_slider_left_margin"-->
+<!--                android:layout_marginEnd="@dimen/cat_slider_left_margin"-->
+<!--                android:layout_marginBottom="@dimen/cat_slider_left_margin"-->
+<!--                android:scrollbarSize="4dp"-->
+<!--                android:scrollbars="horizontal" />-->
 
-            <com.google.android.material.slider.Slider
-                android:id="@+id/scrollMinute"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:scrollbars="horizontal"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/cat_slider_left_margin"
-                android:layout_marginStart="@dimen/cat_slider_left_margin"
-                android:scrollbarSize="4dp"
-                android:valueFrom="0"
-                android:valueTo="60"
-                android:verticalScrollbarPosition="defaultPosition"/>
+<!--            <com.google.android.material.slider.Slider-->
+<!--                android:id="@+id/scrollMinute"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_above="@+id/subject"-->
+<!--                android:layout_marginTop="@dimen/cat_slider_left_margin"-->
+<!--                android:layout_marginEnd="@dimen/cat_slider_left_margin"-->
+<!--                android:layout_marginBottom="@dimen/cat_slider_left_margin"-->
+<!--                android:scrollbarSize="4dp"-->
+<!--                android:scrollbars="horizontal"-->
+<!--                tools:visibility="visible" />-->
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/subject"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:hint="@string/subjectHint">
+                android:layout_height="wrap_content">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/subjectItem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/muli"
                     android:importantForAutofill="no"
+                    android:hint="@string/subjectHint"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -89,10 +89,12 @@
                 android:id="@+id/saveItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/subject"
+                android:layout_marginTop="15dp"
                 android:text="@string/saveTitle" />
 
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
-</LinearLayout>
+</RelativeLayout>
