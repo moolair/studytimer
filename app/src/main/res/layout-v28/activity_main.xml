@@ -18,11 +18,10 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/colorToolbar"
         app:buttonGravity="bottom"
+        app:titleTextColor="@android:color/white"
         app:layout_anchor="@+id/toolbar"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:titleTextColor="@color/colorBlack">
+        app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <TextView
             android:layout_width="match_parent"
@@ -43,5 +42,6 @@
         android:layout_margin="@dimen/mb_margin"
         android:text="@string/start_timing"
         app:backgroundTint="@color/colorPrimaryDark" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

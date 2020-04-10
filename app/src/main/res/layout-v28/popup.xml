@@ -1,74 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="25dp"
     android:id="@+id/layout_id"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="25dp">
-
-            <!--            Timer setup comes in here
-        YJ - April 4, 2020
-        todo: needs to fix the order of the variables -->
-
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/ScrollHour"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:scrollbars="vertical" />-->
-
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/ScrollMinute"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_toEndOf="@+id/ScrollHour"-->
-<!--                android:scrollbars="vertical" />-->
-
-
-<!--            <TextView-->
-<!--                android:id="@+id/subject"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:layout_centerVertical="true"-->
-<!--                android:fontFamily="@font/muli"-->
-<!--                android:text="@string/add_subject"-->
-<!--                android:textFontWeight="400"-->
-<!--                android:textStyle="bold" />-->
 <!--todo: slider might need to be changed. Cardview might need to be removed.
             Find the relation between relativeLayout vs linearLayout
             Try downloading Android Cookbook-->
-<!--            <com.google.android.material.slider.Slider-->
-<!--                android:id="@+id/scrollHour"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_above="@+id/scrollMinute"-->
-<!--                android:layout_marginTop="@dimen/cat_slider_left_margin"-->
-<!--                android:layout_marginEnd="@dimen/cat_slider_left_margin"-->
-<!--                android:layout_marginBottom="@dimen/cat_slider_left_margin"-->
-<!--                android:scrollbarSize="4dp"-->
-<!--                android:scrollbars="horizontal" />-->
+            <com.google.android.material.slider.Slider
+                android:id="@+id/scrollHour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/cat_slider_left_margin"
+                android:scrollbarSize="4dp"
+                android:scrollbars="horizontal" />
 
-<!--            <com.google.android.material.slider.Slider-->
-<!--                android:id="@+id/scrollMinute"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_above="@+id/subject"-->
-<!--                android:layout_marginTop="@dimen/cat_slider_left_margin"-->
-<!--                android:layout_marginEnd="@dimen/cat_slider_left_margin"-->
-<!--                android:layout_marginBottom="@dimen/cat_slider_left_margin"-->
-<!--                android:scrollbarSize="4dp"-->
-<!--                android:scrollbars="horizontal"-->
-<!--                tools:visibility="visible" />-->
-
+            <com.google.android.material.slider.Slider
+                android:id="@+id/scrollMinute"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/cat_slider_left_margin"
+                android:scrollbarSize="4dp"
+                tools:visibility="visible" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/subject"
@@ -91,10 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/subject"
                 android:layout_marginTop="15dp"
+                android:textColor="@android:color/white"
                 android:text="@string/saveTitle" />
 
-
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-
-</RelativeLayout>
+</LinearLayout>
