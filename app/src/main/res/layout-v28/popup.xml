@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="25dp"
     android:id="@+id/layout_id"
     android:orientation="vertical">
@@ -10,13 +11,80 @@
 <!--todo: slider might need to be changed. Cardview might need to be removed.
             Find the relation between relativeLayout vs linearLayout
             Try downloading Android Cookbook-->
+
+    <TextView
+        android:id="@+id/popup_subject"
+        android:text="Timer"
+        android:textSize="25sp"
+        android:textFontWeight="800"
+        android:textStyle="bold"
+        android:fontFamily="@font/muli"
+        android:paddingBottom="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/subject"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/subjectItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/muli"
+            android:importantForAutofill="no"
+            android:hint="@string/subjectHint"
+            android:inputType="text" />
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--    hour slider-->
+        <TextView
+            android:id="@+id/hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hour"
+            android:padding="5dp"
+            android:textSize="15sp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:textSize="15sp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/scrollHour"
+            android:layout_alignRight="@+id/scrollHour" />
+
             <com.google.android.material.slider.Slider
                 android:id="@+id/scrollHour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/cat_slider_left_margin"
+                android:layout_below="@+id/hour"
                 android:scrollbarSize="4dp"
-                android:scrollbars="horizontal" />
+                android:scrollbars="horizontal"
+                android:value="0"
+                android:valueFrom="0"
+                android:valueTo="24" />
+
+        <!--    minute slider-->
+        <TextView
+            android:id="@+id/minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/minute"
+            android:layout_below="@+id/scrollHour"
+            android:padding="5dp"
+            android:textSize="15sp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/scrollMinute"
+            android:layout_alignRight="@+id/scrollMinute"
+            android:textSize="15sp" />
 
             <com.google.android.material.slider.Slider
                 android:id="@+id/scrollMinute"
@@ -24,30 +92,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/cat_slider_left_margin"
                 android:scrollbarSize="4dp"
-                tools:visibility="visible" />
+                android:value="45"
+                android:valueFrom="0"
+                android:valueTo="60"
+                android:layout_below="@+id/minute"
+                tools:visibility="visible"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/subject"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/subjectItem"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/muli"
-                    android:importantForAutofill="no"
-                    android:hint="@string/subjectHint"
-                    android:inputType="text" />
+    </RelativeLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/saveItem"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/subject"
-                android:layout_marginTop="15dp"
-                android:textColor="@android:color/white"
-                android:text="@string/saveTitle" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/saveItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:text="@string/saveTitle" />
 
 </LinearLayout>

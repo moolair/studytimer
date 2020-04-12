@@ -5,6 +5,8 @@
     <string name="start_timing">START</string>
     <string name="add_title">Title</string>
     <string name="add_subject">Enter in subject</string>
-    <string name="subjectHint">Subject</string>
+    <string name="subjectHint">Subject, Rest, etc</string>
     <string name="saveTitle">ADD</string>
+    <string name="hour">Hour</string>
+    <string name="minute">Minute</string>
 </resources>

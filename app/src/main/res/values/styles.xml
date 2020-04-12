@@ -1,11 +1,15 @@
 <resources>
 
     <!-- Base application theme. -->
+<!--    todo: [April 10, 2020] Following theme should be applied in order to use day or night depends on user's preference-->
+<!--    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">-->
     <style name="AppTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="fontFamily">@font/muli</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
