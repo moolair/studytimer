@@ -44,34 +44,35 @@
 
         <!--    hour slider-->
         <TextView
-            android:id="@+id/hour"
+            android:id="@+id/hourTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hour"
             android:padding="5dp"
             android:textSize="15sp"/>
 
-        <EditText
+        <TextView
+            android:id="@+id/hour"
             android:layout_width="wrap_content"
-            android:textSize="15sp"
             android:layout_height="wrap_content"
+            android:text=""
             android:layout_above="@+id/scrollHour"
-            android:layout_alignRight="@+id/scrollHour" />
+        android:layout_alignRight="@+id/scrollHour" />
 
             <com.google.android.material.slider.Slider
                 android:id="@+id/scrollHour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/hour"
+                android:layout_below="@+id/hourTitle"
                 android:scrollbarSize="4dp"
                 android:scrollbars="horizontal"
-                android:value="0"
-                android:valueFrom="0"
-                android:valueTo="24" />
+                android:value="0f"
+                android:valueFrom="0f"
+                android:valueTo="24f" />
 
         <!--    minute slider-->
         <TextView
-            android:id="@+id/minute"
+            android:id="@+id/minuteTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/minute"
@@ -79,24 +80,33 @@
             android:padding="5dp"
             android:textSize="15sp"/>
 
-        <EditText
+        <TextView
+            android:id="@+id/minute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="45"
             android:layout_above="@+id/scrollMinute"
-            android:layout_alignRight="@+id/scrollMinute"
-            android:textSize="15sp" />
+            android:layout_alignRight="@+id/scrollMinute"/>
 
-            <com.google.android.material.slider.Slider
-                android:id="@+id/scrollMinute"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/cat_slider_left_margin"
-                android:scrollbarSize="4dp"
-                android:value="45"
-                android:valueFrom="0"
-                android:valueTo="60"
-                android:layout_below="@+id/minute"
-                tools:visibility="visible"/>
+<!--            <com.google.android.material.slider.Slider-->
+<!--                android:id="@+id/scrollMinute"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="@dimen/cat_slider_left_margin"-->
+<!--                android:scrollbarSize="4dp" -->
+<!--                android:value="45f"-->
+<!--                android:valueFrom="0f"-->
+<!--                android:valueTo="60f"-->
+<!--                android:layout_below="@+id/minuteTitle"-->
+<!--                tools:visibility="visible"/>-->
+
+        <SeekBar
+            android:id="@+id/scrollMinute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/minuteTitle"
+            android:layout_marginBottom="@dimen/cat_slider_left_margin"
+            android:theme="@style/Platform.MaterialComponents" />
 
     </RelativeLayout>
 

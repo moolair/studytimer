@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.slider.Slider;
 import com.google.android.material.snackbar.Snackbar;
 import com.moolair.studytimer.R;
 
@@ -16,14 +17,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private EditText studySubject;
-    private EditText timing;
+//    private EditText timing;
     private MaterialButton add_timer;
+    private MaterialButton saveItem;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
 
 //        MaterialButton add_timing = findViewById(R.id.add_timer);
 //        add_timing.setOnClickListener(new View.OnClickListener() {
@@ -94,11 +102,27 @@ public class MainActivity extends AppCompatActivity {
         dialogBuilder = new AlertDialog.Builder(this);
         View v = getLayoutInflater().inflate(R.layout.popup, null);
         studySubject = (EditText) v.findViewById(R.id.subjectItem);
-        add_timer = (MaterialButton) v.findViewById(R.id.add_timer);
+//        add_timer = (MaterialButton) v.findViewById(R.id.add_timer);
+        saveItem = (MaterialButton) v.findViewById(R.id.saveItem);
 
         dialogBuilder.setView(v);
         dialog = dialogBuilder.create();
         dialog.show();
 
+        saveItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Todo: Save to db
+                //Todo: Go to next screen
+
+                saveItemToDB(v);
+            }
+
+
+        });
+
+    }
+
+    private void saveItemToDB(View v) {
     }
 }
