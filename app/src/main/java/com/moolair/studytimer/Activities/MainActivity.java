@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private MaterialButton add_timer;
     private MaterialButton saveItem;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void createPopupDialog(){
         dialogBuilder = new AlertDialog.Builder(this);
-        View v = getLayoutInflater().inflate(R.layout.popup, null);
-        studySubject = (EditText) v.findViewById(R.id.subjectItem);
+        View v = getLayoutInflater().inflate(R.layout.activity_popup, null);
+//        studySubject = (EditText) v.findViewById(R.id.subjectItem);
 //        add_timer = (MaterialButton) v.findViewById(R.id.add_timer);
         saveItem = (MaterialButton) v.findViewById(R.id.saveItem);
 

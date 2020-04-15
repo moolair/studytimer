@@ -8,9 +8,9 @@
     android:id="@+id/layout_id"
     android:orientation="vertical">
 
-<!--todo: slider might need to be changed. Cardview might need to be removed.
-            Find the relation between relativeLayout vs linearLayout
-            Try downloading Android Cookbook-->
+    <!--todo: slider might need to be changed. Cardview might need to be removed.
+                Find the relation between relativeLayout vs linearLayout
+                Try downloading Android Cookbook-->
 
     <TextView
         android:id="@+id/popup_subject"
@@ -23,19 +23,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/subject"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/subjectItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/muli"
-            android:importantForAutofill="no"
-            android:hint="@string/subjectHint"
-            android:inputType="text" />
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/subject"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content">-->
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/subjectItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/muli"
+        android:importantForAutofill="no"
+        android:hint="@string/subjectHint"
+        android:inputType="text" />
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
 
     <RelativeLayout
@@ -57,18 +57,18 @@
             android:layout_height="wrap_content"
             android:text=""
             android:layout_above="@+id/scrollHour"
-        android:layout_alignRight="@+id/scrollHour" />
+            android:layout_alignRight="@+id/scrollHour" />
 
-            <com.google.android.material.slider.Slider
-                android:id="@+id/scrollHour"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/hourTitle"
-                android:scrollbarSize="4dp"
-                android:scrollbars="horizontal"
-                android:value="0f"
-                android:valueFrom="0f"
-                android:valueTo="24f" />
+        <com.google.android.material.slider.Slider
+            android:id="@+id/scrollHour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hourTitle"
+            android:scrollbarSize="4dp"
+            android:scrollbars="horizontal"
+            android:value="0f"
+            android:valueFrom="0f"
+            android:valueTo="24f" />
 
         <!--    minute slider-->
         <TextView
@@ -84,21 +84,21 @@
             android:id="@+id/minute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="45"
+            android:text=""
             android:layout_above="@+id/scrollMinute"
             android:layout_alignRight="@+id/scrollMinute"/>
 
-<!--            <com.google.android.material.slider.Slider-->
-<!--                android:id="@+id/scrollMinute"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="@dimen/cat_slider_left_margin"-->
-<!--                android:scrollbarSize="4dp" -->
-<!--                android:value="45f"-->
-<!--                android:valueFrom="0f"-->
-<!--                android:valueTo="60f"-->
-<!--                android:layout_below="@+id/minuteTitle"-->
-<!--                tools:visibility="visible"/>-->
+        <!--            <com.google.android.material.slider.Slider-->
+        <!--                android:id="@+id/scrollMinute"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginBottom="@dimen/cat_slider_left_margin"-->
+        <!--                android:scrollbarSize="4dp" -->
+        <!--                android:value="45f"-->
+        <!--                android:valueFrom="0f"-->
+        <!--                android:valueTo="60f"-->
+        <!--                android:layout_below="@+id/minuteTitle"-->
+        <!--                tools:visibility="visible"/>-->
 
         <SeekBar
             android:id="@+id/scrollMinute"
