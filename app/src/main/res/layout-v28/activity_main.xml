@@ -20,19 +20,19 @@
         android:layout_height="200dp"
         app:buttonGravity="bottom"
         app:titleTextColor="@android:color/white"
-        app:layout_anchor="@+id/toolbar"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/muli"
-            android:gravity="center"
             android:text="@string/app_name"
             android:textFontWeight="800"
             android:textSize="30sp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
+
+    <include layout="@layout/content_main"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/start_timing"
