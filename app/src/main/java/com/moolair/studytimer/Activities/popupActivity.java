@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.moolair.studytimer.R;
 
+
 public class popupActivity extends AppCompatActivity {
 
     //    popup syntax
@@ -15,7 +16,7 @@ public class popupActivity extends AppCompatActivity {
     private TextView hour;
     private TextView minute;
 //    float minHr = 0, maxHr = 24, currentHr = 0;
-    int   minMin = 1, maxMin = 60, currentMin = 45;
+    //int   minMin = 1, maxMin = 60, currentMin = 45;
 
     //    private Slider scrollHour;
     private SeekBar scrollMinute;
@@ -26,19 +27,21 @@ public class popupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_popup);
 
 //    //popup syntax create
-    hour = (TextView) findViewById(R.id.hour);
-    minute = (TextView) findViewById(R.id.minute);
-//        scrollHour = (Slider) findViewById(R.id.scrollHour);
-    scrollMinute = (SeekBar) findViewById(R.id.scrollMinute);
+        hour = (TextView) findViewById(R.id.hourID);
+        minute = (TextView) findViewById(R.id.minuteID);
+    //        scrollHour = (Slider) findViewById(R.id.scrollHour);
+        scrollMinute = (SeekBar) findViewById(R.id.scrollMinute);
 
-        scrollMinute.setMax(maxMin - minMin);
-        minute.setText(""+ currentMin);
+//        scrollMinute.setMax(maxMin - minMin);
+//        minute.setText(""+ currentMin);
+
+        minute.setText(scrollMinute.getProgress());
 
         scrollMinute.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            currentMin = progress + minMin;
-            minute.setText("" + currentMin);
+            //currentMin = progress + minMin;
+            minute.setText(progress);
         }
 
         @Override
