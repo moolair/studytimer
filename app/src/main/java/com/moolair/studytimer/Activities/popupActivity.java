@@ -30,30 +30,7 @@ public class popupActivity extends AppCompatActivity {
         hour = (TextView) findViewById(R.id.hourID);
         minute = (TextView) findViewById(R.id.minuteID);
     //        scrollHour = (Slider) findViewById(R.id.scrollHour);
-        scrollMinute = (SeekBar) findViewById(R.id.scrollMinute);
 
-//        scrollMinute.setMax(maxMin - minMin);
-//        minute.setText(""+ currentMin);
-
-        minute.setText(scrollMinute.getProgress());
-
-        scrollMinute.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            //currentMin = progress + minMin;
-            minute.setText(progress);
-        }
-
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-
-        }
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-
-        }
-    });
     }
 
 

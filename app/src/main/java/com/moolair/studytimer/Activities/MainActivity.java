@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.slider.Slider;
 import com.google.android.material.snackbar.Snackbar;
 import com.moolair.studytimer.R;
 
@@ -24,10 +23,10 @@ public class MainActivity extends AppCompatActivity {
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-    private EditText studySubject;
 //    private EditText timing;
     private MaterialButton add_timer;
     private MaterialButton saveItem;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,15 +96,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createPopupDialog(){
+
         dialogBuilder = new AlertDialog.Builder(this);
         View v = getLayoutInflater().inflate(R.layout.activity_popup, null);
 //        studySubject = (EditText) v.findViewById(R.id.subjectItem);
 //        add_timer = (MaterialButton) v.findViewById(R.id.add_timer);
-        saveItem = (MaterialButton) v.findViewById(R.id.saveItem);
+        saveItem = v.findViewById(R.id.saveItem);
 
         dialogBuilder.setView(v);
         dialog = dialogBuilder.create();
+
         dialog.show();
+
 
         saveItem.setOnClickListener(new View.OnClickListener() {
             @Override
