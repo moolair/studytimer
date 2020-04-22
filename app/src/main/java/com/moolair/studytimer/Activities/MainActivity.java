@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 //    private EditText timing;
     private MaterialButton add_timer;
     private MaterialButton saveItem;
+    private EditText studySubject;
 
 
     @Override
@@ -99,8 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
         dialogBuilder = new AlertDialog.Builder(this);
         View v = getLayoutInflater().inflate(R.layout.activity_popup, null);
-//        studySubject = (EditText) v.findViewById(R.id.subjectItem);
-//        add_timer = (MaterialButton) v.findViewById(R.id.add_timer);
+        studySubject = (EditText) v.findViewById(R.id.subjectItem);
         saveItem = v.findViewById(R.id.saveItem);
 
         dialogBuilder.setView(v);
