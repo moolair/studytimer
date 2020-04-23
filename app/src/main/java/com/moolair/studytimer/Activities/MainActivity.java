@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.moolair.studytimer.Data.DBHandler;
+import com.moolair.studytimer.Model.Timer;
 import com.moolair.studytimer.R;
 
 import androidx.appcompat.app.AlertDialog;
@@ -28,15 +30,20 @@ public class MainActivity extends AppCompatActivity {
     private MaterialButton saveItem;
     private EditText studySubject;
 
+    //Database
+    private DBHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         /*YJ - April 4, 2020
         logo and ad page come here.
          setContentView(R.layout.logo_main); --for 2 seconds? then ad page
          */
+
+        db = new DBHandler(this);
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -46,20 +53,11 @@ public class MainActivity extends AppCompatActivity {
         start_timing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                createPopupDialog();
             }
         });
-
-
-
-//        MaterialButton add_timing = findViewById(R.id.add_timer);
-//        add_timing.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                createPopupDialog();
-//            }
-//        });
     }
 
     @Override
@@ -114,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Todo: Save to db
                 //Todo: Go to next screen
-
+            if (!studySubject.getText().toString().isEmpty())
                 saveItemToDB(v);
             }
 
@@ -124,6 +122,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveItemToDB(View v) {
+        Timer timer = new Timer();
 
+        String newTimer = studySubject.getText().toString();
+
+        timer.setSubject(newTimer);
+
+        //Save to DB
+        db.AddTimer(timer);
     }
 }

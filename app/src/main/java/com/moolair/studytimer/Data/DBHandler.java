@@ -21,7 +21,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     private Context ctx;
 
-    public DBHandler(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+    public DBHandler(@Nullable Context context) {
         super(context, constants.DB_NAME, null, constants.DB_VERSION);
         this.ctx = context;
     }

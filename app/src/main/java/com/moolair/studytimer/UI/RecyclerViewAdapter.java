@@ -10,11 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moolair.studytimer.R;
+import com.moolair.studytimer.Model.Timer;
 
 import org.w3c.dom.Text;
 
 import java.util.List;
-import java.util.Timer;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private Context context;
@@ -31,12 +31,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         View view = LayoutInflater.from(parent.getContext())
             .inflate(R.layout.list_row, parent, false);
 
-        return new ViewHolder(view);
+        return new ViewHolder(view, context);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
         Timer timer = timerItems.get(position);
+
+        holder.timerItemName.setText(timer.getSubject());
+        holder.hour.setText(timer.getHour());
+        holder.minute.setText(timer.getMinute());
     }
 
     @Override
@@ -48,9 +52,30 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public TextView timerItemName;
         public TextView hour;
         public TextView minute;
+        public int id;
 
-        public ViewHolder(@NonNull View view) {
+        //slide to delete or edit
+        //public slide doSlideEdit
+        //public slide doSlideDelete
+
+        public ViewHolder(@NonNull View view, Context ctx) {
             super(view);
+
+            context = ctx;
+
+            timerItemName = (TextView) view.findViewById(R.id.subjectName);
+            hour = (TextView) view.findViewById(R.id.hourID);
+            minute = (TextView) view.findViewById(R.id.minuteID);
+
+            //slide onclickListener
+
+            view.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    //go to next screen
+                }
+            });
+
         }
 
         @Override
