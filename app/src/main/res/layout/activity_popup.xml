@@ -24,7 +24,6 @@
         android:id="@+id/subjectItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/muli"
         android:hint="@string/subjectHint"
         android:importantForAutofill="no"
         android:paddingTop="50dp"
@@ -62,12 +61,12 @@
         android:weightSum="100"
         android:paddingBottom="50dp">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/hourID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="00"
+            android:hint="@string/hourhint"
             android:textSize="70sp"
             android:layout_weight="45"
             android:gravity="center"/>
@@ -82,13 +81,13 @@
             android:layout_weight="10"
             android:gravity="center"/>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/minuteID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_toRightOf="@+id/HrMinMid"
-            android:text="50"
+            android:hint="@string/minuteHint"
             android:textSize="70sp"
             android:layout_weight="45"
             android:gravity="center"/>

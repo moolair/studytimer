@@ -30,8 +30,8 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TIMER_TABLE = "CREATE TABLE " + constants.TABLE_NAME + "("
                 + constants.KEY_ID + " INTEGER PRIMARY KEY," + constants.KEY_TIMER_ITEM + " TEXT,"
-                + constants.KEY_HOUR_ADDED + "TEXT,"
-                + constants.KEY_MINUTE_ADDED + "TEXT);";
+                + constants.KEY_HOUR_ADDED + " TEXT,"
+                + constants.KEY_MINUTE_ADDED + " TEXT);";
         db.execSQL(CREATE_TIMER_TABLE);
     }
 
@@ -47,7 +47,7 @@ public class DBHandler extends SQLiteOpenHelper {
      */
 
     //Add Timer
-    public void AddTimer(Timer timer){
+    public void addTimer(Timer timer){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -61,7 +61,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     //Get a Timer
-    private Timer getTimer(int id){
+    public Timer getTimer(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(constants.TABLE_NAME, new String[]{
@@ -97,7 +97,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(constants.TABLE_NAME, new String[]{
                 constants.KEY_ID, constants.KEY_TIMER_ITEM, constants.KEY_HOUR_ADDED,
-                constants.KEY_MINUTE_ADDED}, null, null, null, null, "DESC");
+                constants.KEY_MINUTE_ADDED}, null, null, null, null, " DESC");
 
         if(cursor.moveToFirst()){
             do {

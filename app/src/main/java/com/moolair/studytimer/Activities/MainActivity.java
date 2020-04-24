@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 //    private EditText timing;
     private MaterialButton add_timer;
     private MaterialButton saveItem;
+    private EditText hour;
+    private EditText minute;
     private EditText studySubject;
 
     //Database
@@ -98,8 +101,11 @@ public class MainActivity extends AppCompatActivity {
 
         dialogBuilder = new AlertDialog.Builder(this);
         View v = getLayoutInflater().inflate(R.layout.activity_popup, null);
-        studySubject = (EditText) v.findViewById(R.id.subjectItem);
-        saveItem = v.findViewById(R.id.saveItem);
+        studySubject = v.findViewById(R.id.subjectItem);
+        hour = v.findViewById(R.id.hourID);
+        minute = v.findViewById(R.id.minuteID);
+
+        saveItem = (MaterialButton) v.findViewById(R.id.saveItem);
 
         dialogBuilder.setView(v);
         dialog = dialogBuilder.create();
@@ -129,6 +135,10 @@ public class MainActivity extends AppCompatActivity {
         timer.setSubject(newTimer);
 
         //Save to DB
-        db.AddTimer(timer);
+        db.addTimer(timer);
+
+        Snackbar.make(v, "Item Saved!", Snackbar.LENGTH_LONG).show();
+
+        Log.d("Item Added ID: ", String.valueOf(db.getTimersCount()));
     }
 }
