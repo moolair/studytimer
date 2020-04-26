@@ -64,8 +64,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             context = ctx;
 
             timerItemName = (TextView) view.findViewById(R.id.subjectName);
-            hour = (TextView) view.findViewById(R.id.hourID);
-            minute = (TextView) view.findViewById(R.id.minuteID);
+            hour = (TextView) view.findViewById(R.id.hourDisplay);
+            minute = (TextView) view.findViewById(R.id.minuteDisplay);
 
             //slide onclickListener
 

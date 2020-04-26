@@ -97,7 +97,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(constants.TABLE_NAME, new String[]{
                 constants.KEY_ID, constants.KEY_TIMER_ITEM, constants.KEY_HOUR_ADDED,
-                constants.KEY_MINUTE_ADDED}, null, null, null, null, " DESC");
+                constants.KEY_MINUTE_ADDED}, null, null, null, null, constants.KEY_ID + " ASC");
 
         if(cursor.moveToFirst()){
             do {

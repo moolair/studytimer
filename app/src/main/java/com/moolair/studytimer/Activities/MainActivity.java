@@ -8,11 +8,15 @@ import com.google.android.material.snackbar.Snackbar;
 import com.moolair.studytimer.Data.DBHandler;
 import com.moolair.studytimer.Model.Timer;
 import com.moolair.studytimer.R;
+import com.moolair.studytimer.UI.RecyclerViewAdapter;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -21,6 +25,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
     //Database
     private DBHandler db;
+
+//    //RecyclerView
+//    private RecyclerView recyclerView;
+//    private RecyclerViewAdapter recyclerViewAdapter;
+//    private List<Timer> timerList;
+//    private List<Timer> listItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +74,31 @@ public class MainActivity extends AppCompatActivity {
                 createPopupDialog();
             }
         });
+
+//        //RecyclerView
+//        recyclerView = findViewById(R.id.recyclerViewID);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//
+//        timerList = new ArrayList<>();
+//        listItems = new ArrayList<>();
+//
+//        //Get items from database
+//        timerList = db.getAllTimers();
+//
+//        for (Timer c: timerList){
+//            Timer timer = new Timer();
+//            timer.setSubject(c.getSubject());
+//            timer.setHour(c.getHour() + " : ");
+//            timer.setMinute(c.getMinute());
+//            timer.setId(c.getId());
+//
+//            listItems.add(timer);
+//        }
+//
+//        recyclerViewAdapter = new RecyclerViewAdapter(this, listItems);
+//        recyclerView.setAdapter(recyclerViewAdapter);
+//        recyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -140,5 +178,12 @@ public class MainActivity extends AppCompatActivity {
         Snackbar.make(v, "Item Saved!", Snackbar.LENGTH_LONG).show();
 
         Log.d("Item Added ID: ", String.valueOf(db.getTimersCount()));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                startActivity(new Intent(MainActivity.this, ListActivity.class));
+            }
+        }, 500); //.5 sec
     }
 }
