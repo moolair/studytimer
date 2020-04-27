@@ -61,9 +61,10 @@ public class MainActivity extends AppCompatActivity {
 
         db = new DBHandler(this);
 
-        setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //todo:add recyclerView when main page starts
 
         MaterialButton start_timing = findViewById(R.id.start_timing);
         start_timing.setOnClickListener(new View.OnClickListener() {
@@ -74,31 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 createPopupDialog();
             }
         });
-
-//        //RecyclerView
-//        recyclerView = findViewById(R.id.recyclerViewID);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//
-//        timerList = new ArrayList<>();
-//        listItems = new ArrayList<>();
-//
-//        //Get items from database
-//        timerList = db.getAllTimers();
-//
-//        for (Timer c: timerList){
-//            Timer timer = new Timer();
-//            timer.setSubject(c.getSubject());
-//            timer.setHour(c.getHour() + " : ");
-//            timer.setMinute(c.getMinute());
-//            timer.setId(c.getId());
-//
-//            listItems.add(timer);
-//        }
-//
-//        recyclerViewAdapter = new RecyclerViewAdapter(this, listItems);
-//        recyclerView.setAdapter(recyclerViewAdapter);
-//        recyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -110,16 +86,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-////
-////        //noinspection SimplifiableIfStatement
-////        if (id == R.id.add_timer) {
-////
-////            return true;
-////        }
+
+        //todo: menu case handler
         switch (item.getItemId()){
             case R.id.add_timer:
 
@@ -154,8 +122,6 @@ public class MainActivity extends AppCompatActivity {
         saveItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Todo: Save to db
-                //Todo: Go to next screen
             if (!studySubject.getText().toString().isEmpty())
                 saveItemToDB(v);
             }
