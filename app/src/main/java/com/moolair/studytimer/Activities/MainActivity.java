@@ -135,8 +135,12 @@ public class MainActivity extends AppCompatActivity {
         Timer timer = new Timer();
 
         String newTimer = studySubject.getText().toString();
+        String newHour = hour.getText().toString();
+        String newMinute = minute.getText().toString();
 
         timer.setSubject(newTimer);
+        timer.setHour(newHour);
+        timer.setMinute(newMinute);
 
         //Save to DB
         db.addTimer(timer);

@@ -46,7 +46,7 @@ public class ListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.content_main);
 
         db = new DBHandler(this);
 
@@ -60,11 +60,10 @@ public class ListActivity extends AppCompatActivity {
 
         //Get items from database
         timerList = db.getAllTimers();
-//todo: getHour and getMinute need to be fixed.
         for (Timer c: timerList){
             Timer timer = new Timer();
             timer.setSubject(c.getSubject());
-            timer.setHour(c.getHour() + " : ");
+            timer.setHour(c.getHour() + " :");
             timer.setMinute(c.getMinute());
             timer.setId(c.getId());
 
