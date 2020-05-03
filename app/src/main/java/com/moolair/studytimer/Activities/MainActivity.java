@@ -1,5 +1,6 @@
 package com.moolair.studytimer.Activities;
 
+import android.app.LauncherActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -43,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
     //Database
     private DBHandler db;
 
-//    //RecyclerView
-//    private RecyclerView recyclerView;
-//    private RecyclerViewAdapter recyclerViewAdapter;
-//    private List<Timer> timerList;
-//    private List<Timer> listItems;
+    //RecyclerView
+    private RecyclerView recyclerView;
+    private RecyclerViewAdapter recyclerViewAdapter;
+    private List<Timer> timerList;
+    private List<Timer> listItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,38 @@ public class MainActivity extends AppCompatActivity {
         db = new DBHandler(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+//        recyclerView = findViewById(R.id.recyclerViewID);
+
         setSupportActionBar(toolbar);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+//
+//        recyclerViewAdapter = new RecyclerViewAdapter(this, listItem)
+//
+//        recyclerView.setAdapter(recyclerViewAdapter);
+
+        //RecyclerView
+        recyclerView = findViewById(R.id.recyclerViewID);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        timerList = new ArrayList<>();
+        listItems = new ArrayList<>();
+
+        //Get items from database
+        timerList = db.getAllTimers();
+        for (Timer c: timerList){
+            Timer timer = new Timer();
+            timer.setSubject(c.getSubject());
+            timer.setHour(c.getHour() + " :");
+            timer.setMinute(c.getMinute());
+            timer.setId(c.getId());
+
+            listItems.add(timer);
+        }
+
+        recyclerViewAdapter = new RecyclerViewAdapter(this, listItems);
+        recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerViewAdapter.notifyDataSetChanged();
 
         //todo:add recyclerView when main page starts
 
@@ -91,11 +123,6 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.add_timer:
 
-                /*
-                YJ - April 4, 2020
-                created popupDialog
-                todo: this needs to store values
-                */
                 createPopupDialog();
                 return true;
             default:
@@ -152,7 +179,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 dialog.dismiss();
-                startActivity(new Intent(MainActivity.this, ListActivity.class));
+
+                //todo: udpate recylcerView data to display updated cardview.
+//                recyclerView.setAdapter(recyclerViewAdapter);
+//                recyclerViewAdapter.notifyDataSetChanged();
+//                startActivity(new Intent(MainActivity.this, ListActivity.class));
             }
         }, 500); //.5 sec
     }
