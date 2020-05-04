@@ -12,28 +12,28 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme">
 
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:buttonGravity="bottom"
-        app:layout_anchor="@+id/toolbar"
-        app:layout_anchorGravity="center"
-        app:popupTheme="@style/AppTheme"
-        app:titleTextColor="@color/colorBlack">
-
-        <TextView
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/muli"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textFontWeight="800"
-            android:textSize="30dp"
-            android:textStyle="bold" />
-    </androidx.appcompat.widget.Toolbar>
+            android:layout_height="200dp"
+            app:buttonGravity="bottom"
+            app:layout_anchor="@+id/toolbar"
+            app:layout_anchorGravity="center"
+            app:popupTheme="@style/AppTheme"
+            app:titleTextColor="@color/colorBlack">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/muli"
+                android:gravity="start"
+                android:text="@string/app_name"
+                android:textFontWeight="800"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/start_timing"

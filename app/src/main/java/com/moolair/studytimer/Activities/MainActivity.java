@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-//    private EditText timing;
+
     private MaterialButton add_timer;
     private MaterialButton saveItem;
     private EditText hour;
@@ -63,14 +63,8 @@ public class MainActivity extends AppCompatActivity {
         db = new DBHandler(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-//        recyclerView = findViewById(R.id.recyclerViewID);
 
         setSupportActionBar(toolbar);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-//
-//        recyclerViewAdapter = new RecyclerViewAdapter(this, listItem)
-//
-//        recyclerView.setAdapter(recyclerViewAdapter);
 
         //RecyclerView
         recyclerView = findViewById(R.id.recyclerViewID);
@@ -96,15 +90,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.notifyDataSetChanged();
 
-        //todo:add recyclerView when main page starts
-
-        MaterialButton start_timing = findViewById(R.id.start_timing);
+        Button start_timing = findViewById(R.id.start_timing);
         start_timing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                createPopupDialog();
             }
         });
     }
@@ -113,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        //Remove title in toolbar
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         return true;
     }
 
@@ -180,10 +173,14 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 dialog.dismiss();
 
-                //todo: udpate recylcerView data to display updated cardview.
+                /*todo: udpate recylcerView data to display updated cardview.
+                    For now, it will start Activity in order to refresh the recyclerview.
+                    However, I need to figure out how to refresh the page properly.
+                    YJ: May 2, 2020
+                 */
 //                recyclerView.setAdapter(recyclerViewAdapter);
 //                recyclerViewAdapter.notifyDataSetChanged();
-//                startActivity(new Intent(MainActivity.this, ListActivity.class));
+                startActivity(new Intent(MainActivity.this, MainActivity.class));
             }
         }, 500); //.5 sec
     }

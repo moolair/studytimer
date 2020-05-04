@@ -13,7 +13,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewID"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/mb_margin"
         android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"

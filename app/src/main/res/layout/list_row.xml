@@ -1,49 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:paddingBottom="5dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewID"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <RelativeLayout
-            android:paddingHorizontal="15dp"
-            android:paddingTop="15dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/cardview_border"
+            android:paddingHorizontal="15dp"
+            android:paddingTop="15dp">
 
             <TextView
                 android:id="@+id/subjectName"
-                android:text="SubjectName"
-                android:textSize="15sp"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="SubjectName"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/hourDisplay"
-                android:layout_below="@+id/subjectName"
-                android:text="Hour"
-                android:paddingTop="5dp"
-                android:textStyle="italic"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/subjectName"
+                android:layout_toLeftOf="@+id/minuteDisplay"
+                android:paddingRight="5dp"
+                android:text="Hour"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/minuteDisplay"
-                android:layout_toRightOf="@+id/hourDisplay"
-                android:layout_alignBottom="@+id/hourDisplay"
-                android:paddingLeft="5dp"
-                android:text="Minute"
-                android:textStyle="italic"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/subjectName"
+                android:layout_alignParentEnd="true"
+                android:text="Minute"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-<!--            Todo: Step by Step: RecyclerView Swipe to Delete and Undo
+            <!--            Todo: Step by Step: RecyclerView Swipe to Delete and Undo
 https://medium.com/@zackcosborn/step-by-step-recyclerview-swipe-to-delete-and-undo-7bbae1fce27e-->
             <ProgressBar
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
