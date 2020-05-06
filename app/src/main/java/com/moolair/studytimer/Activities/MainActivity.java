@@ -1,6 +1,5 @@
 package com.moolair.studytimer.Activities;
 
-import android.app.LauncherActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -17,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -24,8 +24,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog dialog;
 
     private MaterialButton add_timer;
-    private MaterialButton saveItem;
+    private Button saveItem;
     private EditText hour;
     private EditText minute;
     private EditText studySubject;
@@ -49,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerViewAdapter recyclerViewAdapter;
     private List<Timer> timerList;
     private List<Timer> listItems;
+
+    //timer
+    private boolean timerRunning;
+    private CountDownTimer countDownTimer;
+    private long totalTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,10 +98,34 @@ public class MainActivity extends AppCompatActivity {
         start_timing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+                startStop();
             }
         });
+    }
+
+    public void startStop() {
+        if(timerRunning)
+            stopTimer();
+        else
+            startTimer();
+    }
+
+    public void stopTimer(){
+
+    }
+
+    public void startTimer(){
+        countDownTimer = new CountDownTimer(totalTime, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                //todo; countdown the timer
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }
     }
 
     @Override
@@ -131,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         hour = v.findViewById(R.id.hourID);
         minute = v.findViewById(R.id.minuteID);
 
-        saveItem = (MaterialButton) v.findViewById(R.id.saveItem);
+        saveItem = (Button) v.findViewById(R.id.saveItem);
 
         dialogBuilder.setView(v);
         dialog = dialogBuilder.create();
@@ -151,12 +179,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    protected long caculateTimer(String hour, String minute){
+        //todo: calculate timer with hour and minute
+        //todo: update: hink about remove the time so it needs to subtract the time)
+
+        return totalTime;
+    }
+
     private void saveItemToDB(View v) {
         Timer timer = new Timer();
 
         String newTimer = studySubject.getText().toString();
         String newHour = hour.getText().toString();
         String newMinute = minute.getText().toString();
+
+        caculateTimer(newHour, newMinute);
 
         timer.setSubject(newTimer);
         timer.setHour(newHour);
