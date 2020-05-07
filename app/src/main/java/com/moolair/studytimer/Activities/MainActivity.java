@@ -108,10 +108,14 @@ public class MainActivity extends AppCompatActivity {
             stopTimer();
         else
             startTimer();
+
     }
 
     public void stopTimer(){
-
+        countDownTimer.cancel();
+        //TODO: MAY 7, 2020 - create a detail activity edit the text
+        //countDownButton.setText("START");
+        timerRunning = false;
     }
 
     public void startTimer(){
@@ -119,13 +123,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 //todo; countdown the timer
+                totalTime = millisUntilFinished;
             }
 
             @Override
             public void onFinish() {
 
             }
-        }
+        }.start();
+
+        //TODO: MAY 7, 2020 - create a detail activity edit the text
+        //countDownButton.setText("START");
+        timerRunning = true;
     }
 
     @Override
@@ -179,9 +188,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //update timer
     protected long caculateTimer(String hour, String minute){
         //todo: calculate timer with hour and minute
         //todo: update: hink about remove the time so it needs to subtract the time)
+
+        int calculateHour = (int) totalTime / 60;
+        int calculateMinute = (int) totalTime / 60000;
+        int calculateSecond = (int) totalTime % 60000 / 1000;
+
+        String timeLeftText;
+
+        timeLeftText = "" + calculateMinute;
+        timeLeftText+=":";
+        if (calculateMinute < 10) timeLeftText+="0";
+        timeLeftText += calculateMinute;
+
+        //todo: display the time in a timeStart activity.
+        //TODO: MAY 7, 2020 - create a detail activity edit the text and show it there.
+        //Todo: also, once it finishes, it should  and move on to rest calculation --> then grab the next time and calculate so and so forth.
+        //countdowntime.setText(timeLeftText);
 
         return totalTime;
     }
