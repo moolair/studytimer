@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.moolair.studytimer.R;
+
 public class CountdownActivity extends AppCompatActivity {
 
     @Override

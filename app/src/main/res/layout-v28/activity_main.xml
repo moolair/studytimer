@@ -29,12 +29,81 @@
                 android:textStyle="bold"
                 android:gravity="center"/>
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:buttonGravity="bottom"
-                app:titleTextColor="@android:color/white"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:layout_alignParentBottom="true">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/restCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginVertical="5dp"
+                    android:layout_marginLeft="@dimen/mb_margin"
+                    android:layout_weight="30">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_alignParentBottom="true">
+
+                        <TextView
+                            android:id="@+id/restID"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:text="@string/restTime"
+                            android:textSize="15dp" />
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/hourRest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/HrMinMidRest"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:maxLength="2"
+                            android:text="00"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/HrMinMidRest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/minuteRest"
+                            android:layout_centerVertical="true"
+                            android:text=":"
+                            android:textSize="15dp" />
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/minuteRest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:inputType="number"
+                            android:maxLength="2"
+                            android:text="15"
+                            android:textSize="15dp" />
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:buttonGravity="bottom"
+                    app:titleTextColor="@android:color/white"
+                    android:layout_weight="70"/>
+            </LinearLayout>
         </RelativeLayout>
 
     </com.google.android.material.appbar.AppBarLayout>

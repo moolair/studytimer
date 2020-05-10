@@ -5,12 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="5dp">
+    android:paddingBottom="5dp"
+    android:background="@color/colorBlack">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewID"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/colorBlack">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -21,6 +23,7 @@
 
             <TextView
                 android:id="@+id/subjectName"
+                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SubjectName"
@@ -31,7 +34,7 @@
                 android:id="@+id/hourDisplay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/subjectName"
+                android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/minuteDisplay"
                 android:paddingRight="5dp"
                 android:text="Hour"
@@ -42,7 +45,7 @@
                 android:id="@+id/minuteDisplay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/subjectName"
+                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:text="Minute"
                 android:textSize="18sp"
