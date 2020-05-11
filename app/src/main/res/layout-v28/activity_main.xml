@@ -40,9 +40,9 @@
                     android:id="@+id/restCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:layout_marginVertical="5dp"
                     android:layout_marginLeft="@dimen/mb_margin"
+                    app:cardCornerRadius="5dp"
                     android:layout_weight="30">
 
                     <RelativeLayout
@@ -102,7 +102,8 @@
                     android:layout_height="match_parent"
                     app:buttonGravity="bottom"
                     app:titleTextColor="@android:color/white"
-                    android:layout_weight="70"/>
+                    android:layout_weight="70"
+                    android:layout_marginRight="@dimen/mb_margin"/>
             </LinearLayout>
         </RelativeLayout>
 
@@ -117,8 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/mb_margin"
-        android:text="@string/start_timing"
-        android:background="@drawable/start_button"/>
+        android:text="@string/start_timing"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

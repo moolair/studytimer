@@ -11,6 +11,10 @@
         <item name="colorControlNormal">@android:color/white</item>
         <item name="fontFamily">@font/muli</item>
     </style>
+    
+<!--    <style name="AppTheme.Button" parent="Widget.AppCompat.Button">-->
+<!--        <item name=""-->
+<!--    </style>-->
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
