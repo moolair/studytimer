@@ -18,7 +18,7 @@
 
 
     <ImageButton
-        android:id="@+id/play"
+        android:id="@+id/pauseStart"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="bottom|center"
