@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private List<Timer> timerList;
     private List<Timer> listItems;
 
-//    //timer
+    //timer
+    public int calculateTotal;
 //    private boolean timerRunning;
 //    private CountDownTimer countDownTimer;
 //    private long totalTime;
@@ -94,13 +96,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.notifyDataSetChanged();
 
-        Button start_timing = findViewById(R.id.start_timing);
-        start_timing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startStop();
-            }
-        });
     }
 
 //    public void startStop() {
@@ -188,38 +183,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    //update timer
-//    protected long updateTimer(String hour, String minute){
-//        //todo: calculate timer with hour and minute
-//        //todo: update: hink about remove the time so it needs to subtract the time)
-//
-//        int calculateHour = (int) totalTime / 60;
-//        int calculateMinute = (int) totalTime / 60000;
-//        int calculateSecond = (int) totalTime % 60000 / 1000;
-//
-//        String timeLeftText;
-//
-//        timeLeftText = "" + calculateHour;
-//        timeLeftText+=":";
-//        if (calculateMinute < 10) timeLeftText+="0";
-//        timeLeftText += calculateMinute;
-//
-//        //todo: display the time in a timeStart activity.
-//        //TODO: MAY 7, 2020 - create a detail activity edit the text and show it there.
-//        //Todo: also, once it finishes, it should  and move on to rest calculation --> then grab the next time and calculate so and so forth.
-//        countdownTimer.setText(timeLeftText);
-//
-//        return totalTime;
-//    }
-
     private void saveItemToDB(View v) {
         Timer timer = new Timer();
 
         String newTimer = studySubject.getText().toString();
-        String newHour = hour.getText().toString();
+//        if (newTimer.isEmpty()){
+//            Toast.makeText(MainActivity.this, "Field can't be empty", Toast.LENGTH_SHORT).show();
+//            return;
+//        } //importantForAutoFill = no on EditText
+        String newHour = hour.getText().toString(); //mEditTextInput
         String newMinute = minute.getText().toString();
+        if(newMinute.equals("00") || newMinute.equals("0")) {
+            Toast.makeText(MainActivity.this, "It can't be 0 minute", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        caculateTimer(newHour, newMinute);
+        calculateTotal = (Integer.parseInt(newHour) * 60) + Integer.parseInt(newMinute);
+//        Toast.makeText(MainActivity.this, Integer.toString(calculateTotal), Toast.LENGTH_SHORT).show();
 
         timer.setSubject(newTimer);
         timer.setHour(newHour);
@@ -230,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
 
         Snackbar.make(v, "Item Saved!", Snackbar.LENGTH_LONG).show();
 
-        Log.d("Item Added ID: ", String.valueOf(db.getTimersCount()));
+//        Log.d("Item Added ID: ", String.valueOf(db.getTimersCount()));
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -240,10 +220,13 @@ public class MainActivity extends AppCompatActivity {
                     For now, it will start Activity in order to refresh the recyclerview.
                     However, I need to figure out how to refresh the page properly.
                     YJ: May 2, 2020
+                    If back button is pressed, it goes to the previous state (no time shows)
+                    YJ: May 13, 2020
                  */
 //                recyclerView.setAdapter(recyclerViewAdapter);
 //                recyclerViewAdapter.notifyDataSetChanged();
                 startActivity(new Intent(MainActivity.this, MainActivity.class));
+//                return;
             }
         }, 500); //.5 sec
     }

@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/muli"
         android:text="Timer"
-        android:textFontWeight="800"
         android:textSize="25sp"
         android:textStyle="bold"/>
 
