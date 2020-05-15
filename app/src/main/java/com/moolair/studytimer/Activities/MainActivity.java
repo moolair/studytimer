@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
 
-    private MaterialButton add_timer;
+//    private MaterialButton add_timer;
     private Button saveItem;
     private EditText hour;
     private EditText minute;
@@ -95,6 +95,34 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewAdapter = new RecyclerViewAdapter(this, listItems);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.notifyDataSetChanged();
+
+        Button start_timing = findViewById(R.id.start_timing);
+        start_timing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                startStop();
+                int position = 0;
+                //todo: takes totalTime value and run it into activity_countdown.
+                //todo: if no time set on recyclerView, do nothing.
+                String inputTime = Integer.toString(calculateTotal); //todo: for now just first time to be countdown. May 14, 2020
+                long millisInput = Long.parseLong(inputTime) * 60000;
+                if (db.getTimersCount() != 0) {
+                    Timer timer = timerList.get(position);
+                    Intent intent = new Intent(MainActivity.this, CountdownActivity.class);
+                    intent.putExtra("subject", timer.getSubject());
+                    intent.putExtra("hour", timer.getHour());
+                    intent.putExtra("minute", timer.getMinute());
+                    intent.putExtra("id", timer.getId());
+
+                    startActivity(intent);
+
+                }else {
+                    Toast.makeText(MainActivity.this, "Add one time slot to start the timer.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+//                setTime(millisInput);
+            }
+        });
 
     }
 

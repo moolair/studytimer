@@ -6,23 +6,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.moolair.studytimer.Data.DBHandler;
 import com.moolair.studytimer.R;
 
+import java.util.Locale;
+
 public class CountdownActivity extends AppCompatActivity {
-    private TextView countdownText;
-    private ImageButton countdownButton;
+    private TextView countdownTime;
+    private TextView countdownSubject;
+    private TextView countdownHour;
+    private TextView countdownMinute;
+    private ImageButton startButton;
+    private ImageButton pauseButton;
 
     //timer
     private CountDownTimer countDownTimer;
-    private long mStarttimeinMillis;
+    private long mTimeLeftInMillis;
     private long totalTime;
-    private boolean timerRunning;
+    private boolean mTimerRunning;
 
     //db
     private DBHandler db;
@@ -31,74 +35,89 @@ public class CountdownActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_countdown);
 
-        countdownText = findViewById(R.id.countdownTimer);
-        countdownButton = findViewById(R.id.pauseStart);
+        countdownTime = findViewById(R.id.countdownTimer);
+        countdownSubject = findViewById(R.id.countdownSubject);
+        startButton = findViewById(R.id.startButton);
+        pauseButton = findViewById(R.id.pauseButton);
 
-        Button start_timing = findViewById(R.id.start_timing);
-        start_timing.setOnClickListener(new View.OnClickListener() {
+        //todo: need to think about how to grab hour and minute and put it into countdownTime. Then run the countdown.
+        //reference: coding in Flow - Youtube
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null){
+//            countdownTime.setText(bundle.getString("time", ));
+        }
+
+        startButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-//                startStop();
-                //todo: takes totalTime value and run it into activity_countdown.
-                //todo: if no time set on recyclerView, do nothing.
-                String inputTime = Integer.toString(calculateTotal); //todo: for now just first time to be countdown. May 14, 2020
-                long millisInput = Long.parseLong(inputTime) * 60000;
-
-                if (db.getTimersCount() != 0)
-                    startActivity(new Intent(MainActivity.this, CountdownActivity.class));
-                else {
-                    Toast.makeText(CountdownActivity.this, "Add one time slot to start the timer.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                setTime(millisInput);
+            public void onClick(View v) {
+                if (mTimerRunning)
+                    pauseTimer();
             }
         });
+
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mTimerRunning)
+                    startTimer();
+            }
+        });
+
+//        updateTimer();
     }
 
-    //todo: - in ountdownActivity, when press start it should countdown the time.
+    //todo: - in countdownActivity, when press start it should countdown the time.
     // time needs to be grabbed from id=1. then, once it's finished it should move onto rest time. and so and so forth until the last id.
     // YJ: May 14, 2020
 
-    public void startStop() {
-        if(timerRunning)
-            stopTimer();
-        else
-            startTimer();
-
-    }
+//    public void startStop() {
+//        if(mTimerRunning)
+//            stopTimer();
+//        else
+//            startTimer();
+//
+//    }
 
     private void setTime(long milliSeconds){
-        mStarttimeinMillis = milliSeconds;
+        mTimeLeftInMillis = milliSeconds;
 //        resetTimer();
     }
 
-    public void stopTimer(){
+    public void pauseTimer(){
         countDownTimer.cancel();
         //TODO: MAY 7, 2020 - create a detail activity edit the text
         //countDownButton.setText("START");
-        timerRunning = false;
+        mTimerRunning = false;
+        startButton.setVisibility(View.VISIBLE);
+        pauseButton.setVisibility(View.INVISIBLE);
     }
 
     public void startTimer(){
-        countDownTimer = new CountDownTimer(mStarttimeinMillis, 1000) {
+        countDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                //todo; countdown the timer
-                mStarttimeinMillis = millisUntilFinished;
+                mTimeLeftInMillis = millisUntilFinished;
+                //todo: grab the value from MainActivity recyclerview hour and minute
+                //YJ: May 14, 2020
+//                updateTimer();
             }
 
             @Override
             public void onFinish() {
-
+                mTimerRunning = false;
+                //todo: for now, it goes back to MainAcitivy; however, we actually need to move onto interstitial Admob
+                startActivity(new Intent(CountdownActivity.this, MainActivity.class));
             }
         }.start();
 
         //TODO: MAY 7, 2020 - create a detail activity edit the text
         //countDownButton.setText("START");
-        timerRunning = true;
+        mTimerRunning = true;
+        startButton.setVisibility(View.INVISIBLE);
+        pauseButton.setVisibility(View.VISIBLE);
     }
 
 
@@ -109,22 +128,36 @@ public class CountdownActivity extends AppCompatActivity {
 
 //        totalTime = hourID + ":" + MinuteID;
 
-        int calculateHour = (int) mStarttimeinMillis / 60;
-        int calculateMinute = (int) mStarttimeinMillis / 60000;
-        int calculateSecond = (int) mStarttimeinMillis % 60000 / 1000;
+        int calculateHour = (int) mTimeLeftInMillis / 60;
+        int calculateMinute = (int) (mTimeLeftInMillis / 1000) / 60;
+        int calculateSecond = (int) (mTimeLeftInMillis % 1000) % 60;
 
-        String timeLeftText;
+//        String timeLeftFormatted;
+//
+//        timeLeftFormatted = "" + calculateHour;
+//        timeLeftFormatted+=":";
+//        if (calculateMinute < 10) timeLeftFormatted+="0";
+//        timeLeftFormatted += calculateMinute;
 
-        timeLeftText = "" + calculateHour;
-        timeLeftText+=":";
-        if (calculateMinute < 10) timeLeftText+="0";
-        timeLeftText += calculateMinute;
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02:%02", calculateHour, calculateMinute);
 
         //todo: display the time in a timeStart activity.
         //TODO: MAY 7, 2020 - create a detail activity edit the text and show it there.
         //Todo: also, once it finishes, it should  and move on to rest calculation --> then grab the next time and calculate so and so forth.
-        countdownText.setText(timeLeftText);
+        countdownTime.setText(timeLeftFormatted);
 
         return totalTime;
+    }
+
+    private void updateButtons(){
+        if (mTimerRunning){
+            startButton.setVisibility(View.INVISIBLE);
+            pauseButton.setVisibility(View.VISIBLE);
+        } else {
+            startButton.setVisibility(View.VISIBLE);
+            pauseButton.setVisibility(View.INVISIBLE);
+
+//            if (mTime)
+        }
     }
 }

@@ -8,22 +8,48 @@
     android:background="@color/colorBlack"
     tools:context=".Activities.CountdownActivity">
 
-    <TextView
-        android:id="@+id/countdownTimer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="00:00"
-        android:textSize="80dp"
-        android:layout_gravity="center"/>
+    <RelativeLayout
+        android:id="@+id/relativeLayout_countDown"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/countdownSubject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/countdownTimer"
+            android:layout_centerHorizontal="true"
+            android:hint="countDownSubject "
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/countdownTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="00:00"
+            android:textSize="80dp" />
+    </RelativeLayout>
 
     <ImageButton
-        android:id="@+id/pauseStart"
+        android:id="@+id/startButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/mb_margin"
-        android:src="@drawable/ic_play_arrow"
-        android:background="@drawable/start_button"/>
+        android:background="@drawable/ic_play_arrow"
+        android:visibility="invisible"
+        tools:visibility="visible"/>
+
+    <ImageButton
+        android:id="@+id/pauseButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="@dimen/mb_margin"
+        android:background="@drawable/ic_pause"
+        android:visibility="visible"
+        tools:visibility="invisible"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
