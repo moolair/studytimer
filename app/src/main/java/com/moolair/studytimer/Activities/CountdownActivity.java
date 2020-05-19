@@ -17,8 +17,8 @@ import java.util.Locale;
 public class CountdownActivity extends AppCompatActivity {
     private TextView countdownTime;
     private TextView countdownSubject;
-    private TextView countdownHour;
-    private TextView countdownMinute;
+    private String countdownHour;
+    private String countdownMinute;
     private ImageButton startButton;
     private ImageButton pauseButton;
 
@@ -42,12 +42,18 @@ public class CountdownActivity extends AppCompatActivity {
         startButton = findViewById(R.id.startButton);
         pauseButton = findViewById(R.id.pauseButton);
 
-        //todo: need to think about how to grab hour and minute and put it into countdownTime. Then run the countdown.
         //reference: coding in Flow - Youtube
         Bundle bundle = getIntent().getExtras();
 
         if (bundle != null){
-//            countdownTime.setText(bundle.getString("time", ));
+//            countdownTime.setText();
+            countdownSubject.setText(bundle.getString("subject"));
+            countdownHour = bundle.getString("hour");
+            countdownMinute = bundle.getString("minute");
+
+            //todo: it's able to setup a time. try to run a timer with proper hour and minute time.
+            int calculation = totalTime(countdownHour, countdownMinute);
+            countdownTime.setText(Integer.toString(calculation));
         }
 
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +73,11 @@ public class CountdownActivity extends AppCompatActivity {
         });
 
 //        updateTimer();
+    }
+
+    private int totalTime(String countdownHour, String countdownMinute) {
+        int calculateTime = (Integer.parseInt(countdownHour) * 60) + Integer.parseInt(countdownMinute);
+        return calculateTime;
     }
 
     //todo: - in countdownActivity, when press start it should countdown the time.
@@ -102,7 +113,7 @@ public class CountdownActivity extends AppCompatActivity {
                 mTimeLeftInMillis = millisUntilFinished;
                 //todo: grab the value from MainActivity recyclerview hour and minute
                 //YJ: May 14, 2020
-//                updateTimer();
+                updateTimer(countdownHour, countdownMinute);
             }
 
             @Override

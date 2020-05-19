@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Timer> listItems;
 
     //timer
-    public int calculateTotal;
+//    private int calculateTotal;
 //    private boolean timerRunning;
 //    private CountDownTimer countDownTimer;
 //    private long totalTime;
@@ -92,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
             listItems.add(timer);
         }
 
+
+
         recyclerViewAdapter = new RecyclerViewAdapter(this, listItems);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.notifyDataSetChanged();
@@ -101,18 +103,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                startStop();
-                int position = 0;
+//                int position = timerList.get().getId();
+//                int position = timerList.get(6).getId();
                 //todo: takes totalTime value and run it into activity_countdown.
                 //todo: if no time set on recyclerView, do nothing.
-                String inputTime = Integer.toString(calculateTotal); //todo: for now just first time to be countdown. May 14, 2020
-                long millisInput = Long.parseLong(inputTime) * 60000;
+                //String inputTime = Integer.toString(calculateTotal); //todo: for now just first time to be countdown. May 14, 2020
+//                long millisInput = Long.parseLong(inputTime) * 60000;
                 if (db.getTimersCount() != 0) {
-                    Timer timer = timerList.get(position);
+                    Timer timer = timerList.get(6);
                     Intent intent = new Intent(MainActivity.this, CountdownActivity.class);
                     intent.putExtra("subject", timer.getSubject());
                     intent.putExtra("hour", timer.getHour());
                     intent.putExtra("minute", timer.getMinute());
-                    intent.putExtra("id", timer.getId());
+//                    intent.putExtra("id", timer.getId());
 
                     startActivity(intent);
 
@@ -226,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        calculateTotal = (Integer.parseInt(newHour) * 60) + Integer.parseInt(newMinute);
+//        calculateTotal = (Integer.parseInt(newHour) * 60) + Integer.parseInt(newMinute);
 //        Toast.makeText(MainActivity.this, Integer.toString(calculateTotal), Toast.LENGTH_SHORT).show();
 
         timer.setSubject(newTimer);
