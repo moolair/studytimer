@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 //String inputTime = Integer.toString(calculateTotal); //todo: for now just first time to be countdown. May 14, 2020
 //                long millisInput = Long.parseLong(inputTime) * 60000;
                 if (db.getTimersCount() != 0) {
-                    Timer timer = timerList.get(6);
+                    Timer timer = timerList.get(10); //todo: take the value and do the loop of the whole proess until the last subject. May 20, 2020
                     Intent intent = new Intent(MainActivity.this, CountdownActivity.class);
                     intent.putExtra("subject", timer.getSubject());
                     intent.putExtra("hour", timer.getHour());
