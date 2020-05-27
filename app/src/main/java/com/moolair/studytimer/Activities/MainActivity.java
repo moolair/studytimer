@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 
                 }else {
-                    Toast.makeText(MainActivity.this, "Add one time slot to start the timer.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Add a timer to start", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -135,10 +135,12 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK){
                 //todo: start admob then move onto the next activity
 
-
-
                 nextIntent++;
                 if (nextIntent != timerList.size()) {
+                    //todo: add rest time before starting timerList
+
+
+
                     Timer timer = timerList.get(nextIntent); //todo: take the value and do the loop of the whole process until the last subject. May 20, 2020
                     Intent intent = new Intent(MainActivity.this, CountdownActivity.class);
                     intent.putExtra("subject", timer.getSubject());
