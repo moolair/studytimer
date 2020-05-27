@@ -122,7 +122,10 @@ public class CountdownActivity extends AppCompatActivity {
             public void onFinish() {
                 mTimerRunning = false;
                 //todo: for now, it goes back to MainAcitivy; however, we actually need to move onto interstitial Admob
-                startActivity(new Intent(CountdownActivity.this, MainActivity.class));
+
+                Intent resultIntent = new Intent();
+                setResult(RESULT_OK, resultIntent);
+                finish();
             }
         }.start();
 

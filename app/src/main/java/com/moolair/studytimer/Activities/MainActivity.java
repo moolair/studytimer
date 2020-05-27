@@ -10,6 +10,7 @@ import com.moolair.studytimer.Model.Timer;
 import com.moolair.studytimer.R;
 import com.moolair.studytimer.UI.RecyclerViewAdapter;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Timer> listItems;
 
     //timer
+    int nextIntent = 0;
 //    private int calculateTotal;
 //    private boolean timerRunning;
 //    private CountDownTimer countDownTimer;
@@ -92,8 +94,6 @@ public class MainActivity extends AppCompatActivity {
             listItems.add(timer);
         }
 
-
-
         recyclerViewAdapter = new RecyclerViewAdapter(this, listItems);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.notifyDataSetChanged();
@@ -102,66 +102,55 @@ public class MainActivity extends AppCompatActivity {
         start_timing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startStop();
-//                int position = timerList.get().getId();
-//                int position = timerList.get(6).getId();
                 //todo: takes totalTime value and run it into activity_countdown.
                 //todo: if no time set on recyclerView, do nothing.
-                //String inputTime = Integer.toString(calculateTotal); //todo: for now just first time to be countdown. May 14, 2020
-//                long millisInput = Long.parseLong(inputTime) * 60000;
-                if (db.getTimersCount() != 0) {
-                    Timer timer = timerList.get(10); //todo: take the value and do the loop of the whole proess until the last subject. May 20, 2020
+                if (timerList.size() != 0) {
+//                    for (int i = 0; i < timerList.size(); i++) {
+                        Timer timer = timerList.get(nextIntent); //todo: take the value and do the loop of the whole process until the last subject. May 20, 2020
+                        Intent intent = new Intent(MainActivity.this, CountdownActivity.class);
+                        intent.putExtra("subject", timer.getSubject());
+                        intent.putExtra("hour", timer.getHour());
+                        intent.putExtra("minute", timer.getMinute());
+//                    intent.putExtra("id", timer.getId());
+
+                        startActivityForResult(intent, 1);
+                        //todo: START button is greyed out.
+                        //todo: wait for the first one to finish.
+//                    }
+
+                }else {
+                    Toast.makeText(MainActivity.this, "Add one time slot to start the timer.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1){
+            if (resultCode == RESULT_OK){
+                //todo: start admob then move onto the next activity
+
+
+
+                nextIntent++;
+                if (nextIntent != timerList.size()) {
+                    Timer timer = timerList.get(nextIntent); //todo: take the value and do the loop of the whole process until the last subject. May 20, 2020
                     Intent intent = new Intent(MainActivity.this, CountdownActivity.class);
                     intent.putExtra("subject", timer.getSubject());
                     intent.putExtra("hour", timer.getHour());
                     intent.putExtra("minute", timer.getMinute());
 //                    intent.putExtra("id", timer.getId());
 
-                    startActivity(intent);
-
-                }else {
-                    Toast.makeText(MainActivity.this, "Add one time slot to start the timer.", Toast.LENGTH_SHORT).show();
-                    return;
+                    startActivityForResult(intent, 1);
                 }
-//                setTime(millisInput);
             }
-        });
-
+        }
     }
-
-//    public void startStop() {
-//        if(timerRunning)
-//            stopTimer();
-//        else
-//            startTimer();
-//
-//    }
-//
-//    public void stopTimer(){
-//        countDownTimer.cancel();
-//        //TODO: MAY 7, 2020 - create a detail activity edit the text
-//        //countDownButton.setText("START");
-//        timerRunning = false;
-//    }
-//
-//    public void startTimer(){
-//        countDownTimer = new CountDownTimer(totalTime, 1000) {
-//            @Override
-//            public void onTick(long millisUntilFinished) {
-//                //todo; countdown the timer
-//                totalTime = millisUntilFinished;
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//
-//            }
-//        }.start();
-//
-//        //TODO: MAY 7, 2020 - create a detail activity edit the text
-//        //countDownButton.setText("START");
-//        timerRunning = true;
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
