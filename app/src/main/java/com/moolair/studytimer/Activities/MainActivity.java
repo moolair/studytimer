@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -52,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
 
     //timer
     int nextIntent = 0;
+
+    //Rest Time
+//    int restTime = 0;
+    private TextView restSubject;
+    private EditText restHour;
+    private EditText restMinute;
 //    private int calculateTotal;
 //    private boolean timerRunning;
 //    private CountDownTimer countDownTimer;
@@ -79,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //Rest time
+        restSubject = findViewById(R.id.restID);
+        restHour = findViewById(R.id.hourRest);
+        restMinute = findViewById(R.id.minuteRest);
+
         timerList = new ArrayList<>();
         listItems = new ArrayList<>();
 
@@ -105,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
                 //todo: takes totalTime value and run it into activity_countdown.
                 //todo: if no time set on recyclerView, do nothing.
                 if (timerList.size() != 0) {
-//                    for (int i = 0; i < timerList.size(); i++) {
                         Timer timer = timerList.get(nextIntent); //todo: take the value and do the loop of the whole process until the last subject. May 20, 2020
                         Intent intent = new Intent(MainActivity.this, CountdownActivity.class);
                         intent.putExtra("subject", timer.getSubject());
@@ -113,14 +124,12 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("minute", timer.getMinute());
 //                    intent.putExtra("id", timer.getId());
 
-                        startActivityForResult(intent, 1);
+                        startActivityForResult(intent, 2);
                         //todo: START button is greyed out.
                         //todo: wait for the first one to finish.
-//                    }
 
                 }else {
                     Toast.makeText(MainActivity.this, "Add a timer to start", Toast.LENGTH_SHORT).show();
-                    return;
                 }
 
             }
@@ -131,27 +140,38 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1){
-            if (resultCode == RESULT_OK){
-                //todo: start admob then move onto the next activity
-
-                nextIntent++;
-                if (nextIntent != timerList.size()) {
+        if (nextIntent != timerList.size()-1) {
+            if (requestCode == 1) {
+                if (resultCode == RESULT_OK) {
+                    //todo: start admob then move onto the next activity
+                    nextIntent++;
                     //todo: add rest time before starting timerList
-
-
-
+                    //                    restTime = 0;
                     Timer timer = timerList.get(nextIntent); //todo: take the value and do the loop of the whole process until the last subject. May 20, 2020
                     Intent intent = new Intent(MainActivity.this, CountdownActivity.class);
                     intent.putExtra("subject", timer.getSubject());
                     intent.putExtra("hour", timer.getHour());
                     intent.putExtra("minute", timer.getMinute());
-//                    intent.putExtra("id", timer.getId());
+                    //                    intent.putExtra("id", timer.getId());
 
-                    startActivityForResult(intent, 1);
+                    startActivityForResult(intent, 2);
+
+                }
+            } else {
+                if (resultCode == RESULT_OK) {
+                    Intent restIntent = new Intent(MainActivity.this, CountdownActivity.class);
+                    restIntent.putExtra("subject", restSubject.getText().toString());
+                    restIntent.putExtra("hour", restHour.getText().toString());
+                    restIntent.putExtra("minute", restMinute.getText().toString());
+                    //                    intent.putExtra("id", timer.getId());
+
+                    startActivityForResult(restIntent, 1);
                 }
             }
-        }
+        }else
+            nextIntent = 0;
+        //todo: try to erase all the db timelist
+        //todo: clear buffer? memoryleak clear?
     }
 
     @Override

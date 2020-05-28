@@ -28,6 +28,7 @@ public class CountdownActivity extends AppCompatActivity {
     private long mTimeLeftInMillis;
     private long totalTime;
     private boolean mTimerRunning;
+    int restTime = 0;
 
     //db
     private DBHandler db;
@@ -53,8 +54,9 @@ public class CountdownActivity extends AppCompatActivity {
             countdownMinute = bundle.getString("minute");
 
             //todo: it's able to setup a time. try to run a timer with proper hour and minute time.
-            mTimeLeftInMillis = totalTime(countdownHour, countdownMinute);
-////            countdownTime.setText(Integer.toString(calculation));
+            //todo: ********************for now, May 27, 2020. Change this back to the bottom mTimeLestInMillis.*********************
+            mTimeLeftInMillis = Integer.parseInt(countdownMinute) * 1000;
+            //mTimeLeftInMillis = totalTime(countdownHour, countdownMinute);
 
             startTimer();
         }
@@ -122,9 +124,15 @@ public class CountdownActivity extends AppCompatActivity {
             public void onFinish() {
                 mTimerRunning = false;
                 //todo: for now, it goes back to MainAcitivy; however, we actually need to move onto interstitial Admob
-
-                Intent resultIntent = new Intent();
-                setResult(RESULT_OK, resultIntent);
+//                if (restTime == 0){
+//                    restTime = 1;
+//                    Intent restIntent = new Intent();
+//                    setResult(RESULT_CANCELED, restIntent);
+//                }else {
+//                    restTime = 0;
+                    Intent resultIntent = new Intent();
+                    setResult(RESULT_OK, resultIntent);
+//                }
                 finish();
             }
         }.start();
