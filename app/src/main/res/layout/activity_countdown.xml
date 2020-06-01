@@ -8,28 +8,41 @@
     android:background="@color/colorBlack"
     tools:context=".Activities.CountdownActivity">
 
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/mb_margin"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111">
+    </com.google.android.gms.ads.AdView>
+
     <RelativeLayout
-        android:id="@+id/relativeLayout_countDown"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            android:id="@+id/relativeLayout_countDown"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/countdownSubject"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/countdownTimer"
-            android:layout_centerHorizontal="true"
-            android:hint="countDownSubject "
-            android:textSize="20dp" />
+            <TextView
+                android:id="@+id/countdownSubject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/countdownTimer"
+                android:layout_centerHorizontal="true"
+                android:hint="countDownSubject "
+                android:textSize="20dp" />
 
-        <TextView
-            android:id="@+id/countdownTimer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="00:00"
-            android:textSize="80dp" />
+            <TextView
+                android:id="@+id/countdownTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="00:00"
+                android:textSize="80dp" />
+
+
     </RelativeLayout>
 
     <ImageButton

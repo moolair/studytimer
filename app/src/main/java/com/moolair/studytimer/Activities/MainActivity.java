@@ -3,6 +3,9 @@ package com.moolair.studytimer.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.moolair.studytimer.Data.DBHandler;
@@ -64,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
 //    private CountDownTimer countDownTimer;
 //    private long totalTime;
 
+    //Interstitial Admob
+    private InterstitialAd interstitialAd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +96,39 @@ public class MainActivity extends AppCompatActivity {
         restSubject = findViewById(R.id.restID);
         restHour = findViewById(R.id.hourRest);
         restMinute = findViewById(R.id.minuteRest);
+
+        //interstitial Admob
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        interstitialAd.loadAd(new AdRequest.Builder().build());
+
+        interstitialAd.setAdListener(new AdListener(){
+            @Override
+            public void onAdClosed(){
+                if (nextIntent != timerList.size()-1) {
+                    interstitialAd.loadAd(new AdRequest.Builder().build());
+                    Intent restIntent = new Intent(MainActivity.this, CountdownActivity.class);
+                    restIntent.putExtra("subject", restSubject.getText().toString());
+                    restIntent.putExtra("hour", restHour.getText().toString());
+                    restIntent.putExtra("minute", restMinute.getText().toString());
+                    //                    intent.putExtra("id", timer.getId());
+
+                    startActivityForResult(restIntent, 1);
+                } else {
+
+                    //before going to rest, let's interstitial Admob
+                    if (interstitialAd.isLoaded()) {
+                        interstitialAd.show();
+                    } else {
+                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    }
+
+                    nextIntent = 0;
+                    //todo: try to erase all the db timelist
+                    //todo: clear buffer? memoryleak clear?
+                }
+            }
+        });
 
         timerList = new ArrayList<>();
         listItems = new ArrayList<>();
@@ -159,19 +198,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             } else {
                 if (resultCode == RESULT_OK) {
-                    Intent restIntent = new Intent(MainActivity.this, CountdownActivity.class);
-                    restIntent.putExtra("subject", restSubject.getText().toString());
-                    restIntent.putExtra("hour", restHour.getText().toString());
-                    restIntent.putExtra("minute", restMinute.getText().toString());
-                    //                    intent.putExtra("id", timer.getId());
+//                    Intent restIntent = new Intent(MainActivity.this, CountdownActivity.class);
+//                    restIntent.putExtra("subject", restSubject.getText().toString());
+//                    restIntent.putExtra("hour", restHour.getText().toString());
+//                    restIntent.putExtra("minute", restMinute.getText().toString());
+//                    //                    intent.putExtra("id", timer.getId());
+//
+//                    startActivityForResult(restIntent, 1);
 
-                    startActivityForResult(restIntent, 1);
+                    //before going to rest, let's interstitial Admob
+                    if (interstitialAd.isLoaded()) {
+                        interstitialAd.show();
+                    } else {
+                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    }
                 }
             }
-        }else
-            nextIntent = 0;
-        //todo: try to erase all the db timelist
-        //todo: clear buffer? memoryleak clear?
+        }
     }
 
     @Override
