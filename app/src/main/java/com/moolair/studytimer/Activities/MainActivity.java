@@ -13,10 +13,12 @@ import com.moolair.studytimer.Model.Timer;
 import com.moolair.studytimer.R;
 import com.moolair.studytimer.UI.RecyclerViewAdapter;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerViewAdapter recyclerViewAdapter;
     private List<Timer> timerList;
     private List<Timer> listItems;
+    private Timer deletedTimer = null;
 
     //timer
     int nextIntent = 0;
@@ -105,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         interstitialAd.setAdListener(new AdListener(){
             @Override
             public void onAdClosed(){
-                if (nextIntent != timerList.size()-1) {
+                if (nextIntent != listItems.size()-1) {
                     interstitialAd.loadAd(new AdRequest.Builder().build());
                     Intent restIntent = new Intent(MainActivity.this, CountdownActivity.class);
                     restIntent.putExtra("subject", restSubject.getText().toString());
@@ -155,8 +158,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //todo: takes totalTime value and run it into activity_countdown.
                 //todo: if no time set on recyclerView, do nothing.
-                if (timerList.size() != 0) {
-                        Timer timer = timerList.get(nextIntent); //todo: take the value and do the loop of the whole process until the last subject. May 20, 2020
+                if (listItems.size() != 0) {
+                        Timer timer = listItems.get(nextIntent); //todo: take the value and do the loop of the whole process until the last subject. May 20, 2020
                         Intent intent = new Intent(MainActivity.this, CountdownActivity.class);
                         intent.putExtra("subject", timer.getSubject());
                         intent.putExtra("hour", timer.getHour());
@@ -174,7 +177,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
     }
+
+
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            //todo: drag and drop to re-order the timers.
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            //todo: swipe to delete works, but needs to fix db deletion and recyclerview.
+            final int position = viewHolder.getAdapterPosition();
+
+            deletedTimer = listItems.get(position);
+            listItems.remove(position);
+            db.deleteTimer(position+1);
+            recyclerViewAdapter.notifyItemRemoved(position);
+            Snackbar.make(recyclerView, deletedTimer.getSubject(), Snackbar.LENGTH_LONG)
+                    .setAction("Undo", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            listItems.add(position, deletedTimer);
+                            recyclerViewAdapter.notifyItemInserted(position);
+                        }
+                    }).show();
+        }
+    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
