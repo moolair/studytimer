@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.moolair.studytimer.Data.DBHandler;
 import com.moolair.studytimer.R;
 import com.moolair.studytimer.Model.Timer;
 
@@ -82,5 +83,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public void onClick(View v) {
 
         }
+
+
+    }
+
+    public void deleteItem(int id) {
+        DBHandler db = new DBHandler(context);
+        db.deleteTimer(id);
     }
 }

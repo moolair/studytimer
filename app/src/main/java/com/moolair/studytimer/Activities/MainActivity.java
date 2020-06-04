@@ -21,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -54,8 +55,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     private List<Timer> timerList;
-    private List<Timer> listItems;
+    public List<Timer> listItems;
     private Timer deletedTimer = null;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     //timer
     int nextIntent = 0;
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewID);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
         //Rest time
         restSubject = findViewById(R.id.restID);
@@ -110,22 +113,9 @@ public class MainActivity extends AppCompatActivity {
             public void onAdClosed(){
                 if (nextIntent != listItems.size()-1) {
                     interstitialAd.loadAd(new AdRequest.Builder().build());
-                    Intent restIntent = new Intent(MainActivity.this, CountdownActivity.class);
-                    restIntent.putExtra("subject", restSubject.getText().toString());
-                    restIntent.putExtra("hour", restHour.getText().toString());
-                    restIntent.putExtra("minute", restMinute.getText().toString());
-                    //                    intent.putExtra("id", timer.getId());
-
-                    startActivityForResult(restIntent, 1);
+                    restIntent();
                 } else {
-
-                    //before going to rest, let's interstitial Admob
-                    if (interstitialAd.isLoaded()) {
-                        interstitialAd.show();
-                    } else {
-                        Log.d("TAG", "The interstitial wasn't loaded yet.");
-                    }
-
+                    interstitialAds();
                     nextIntent = 0;
                     //todo: try to erase all the db timelist
                     //todo: clear buffer? memoryleak clear?
@@ -152,6 +142,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.notifyDataSetChanged();
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                recyclerViewAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         Button start_timing = findViewById(R.id.start_timing);
         start_timing.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,16 +157,9 @@ public class MainActivity extends AppCompatActivity {
                 //todo: takes totalTime value and run it into activity_countdown.
                 //todo: if no time set on recyclerView, do nothing.
                 if (listItems.size() != 0) {
-                        Timer timer = listItems.get(nextIntent); //todo: take the value and do the loop of the whole process until the last subject. May 20, 2020
-                        Intent intent = new Intent(MainActivity.this, CountdownActivity.class);
-                        intent.putExtra("subject", timer.getSubject());
-                        intent.putExtra("hour", timer.getHour());
-                        intent.putExtra("minute", timer.getMinute());
-//                    intent.putExtra("id", timer.getId());
-
-                        startActivityForResult(intent, 2);
-                        //todo: START button is greyed out.
-                        //todo: wait for the first one to finish.
+                    timerIntent();
+                    //todo: START button is greyed out.
+                    //todo: wait for the first one to finish.
 
                 }else {
                     Toast.makeText(MainActivity.this, "Add a timer to start", Toast.LENGTH_SHORT).show();
@@ -182,7 +173,35 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void restIntent() {
+        Intent restIntent = new Intent(MainActivity.this, CountdownActivity.class);
+        restIntent.putExtra("subject", restSubject.getText().toString());
+        restIntent.putExtra("hour", restHour.getText().toString());
+        restIntent.putExtra("minute", restMinute.getText().toString());
+//        restIntent.putExtra("id", restID.getId());
 
+        startActivityForResult(restIntent, 1);
+    }
+
+    private void timerIntent(){
+        Timer timer = listItems.get(nextIntent); //todo: take the value and do the loop of the whole process until the last subject. May 20, 2020
+        Intent intent = new Intent(MainActivity.this, CountdownActivity.class);
+        intent.putExtra("subject", timer.getSubject());
+        intent.putExtra("hour", timer.getHour());
+        intent.putExtra("minute", timer.getMinute());
+        intent.putExtra("id", timer.getId());
+
+        startActivityForResult(intent, 2);
+    }
+
+    private void interstitialAds() {
+        //before going to rest, let's interstitial Admob
+        if (interstitialAd.isLoaded()) {
+            interstitialAd.show();
+        } else {
+            Log.d("TAG", "The interstitial wasn't loaded yet.");
+        }
+    }
 
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
         @Override
@@ -198,7 +217,8 @@ public class MainActivity extends AppCompatActivity {
 
             deletedTimer = listItems.get(position);
             listItems.remove(position);
-            db.deleteTimer(position+1);
+            recyclerViewAdapter.deleteItem(deletedTimer.getId());
+
             recyclerViewAdapter.notifyItemRemoved(position);
             Snackbar.make(recyclerView, deletedTimer.getSubject(), Snackbar.LENGTH_LONG)
                     .setAction("Undo", new View.OnClickListener() {
@@ -221,14 +241,7 @@ public class MainActivity extends AppCompatActivity {
                     nextIntent++;
                     //todo: add rest time before starting timerList
                     //                    restTime = 0;
-                    Timer timer = timerList.get(nextIntent); //todo: take the value and do the loop of the whole process until the last subject. May 20, 2020
-                    Intent intent = new Intent(MainActivity.this, CountdownActivity.class);
-                    intent.putExtra("subject", timer.getSubject());
-                    intent.putExtra("hour", timer.getHour());
-                    intent.putExtra("minute", timer.getMinute());
-                    //                    intent.putExtra("id", timer.getId());
-
-                    startActivityForResult(intent, 2);
+                    timerIntent();
 
                 }
             } else {
@@ -240,13 +253,7 @@ public class MainActivity extends AppCompatActivity {
 //                    //                    intent.putExtra("id", timer.getId());
 //
 //                    startActivityForResult(restIntent, 1);
-
-                    //before going to rest, let's interstitial Admob
-                    if (interstitialAd.isLoaded()) {
-                        interstitialAd.show();
-                    } else {
-                        Log.d("TAG", "The interstitial wasn't loaded yet.");
-                    }
+                    interstitialAds();
                 }
             }
         }
@@ -334,7 +341,6 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                dialog.dismiss();
 
                 /*todo: udpate recylcerView data to display updated cardview.
                     For now, it will start Activity in order to refresh the recyclerview.
@@ -343,11 +349,16 @@ public class MainActivity extends AppCompatActivity {
                     If back button is pressed, it goes to the previous state (no time shows)
                     YJ: May 13, 2020
                  */
-//                recyclerView.setAdapter(recyclerViewAdapter);
-//                recyclerViewAdapter.notifyDataSetChanged();
+
+                dialog.dismiss();
                 startActivity(new Intent(MainActivity.this, MainActivity.class));
 //                return;
+
+
             }
         }, 500); //.5 sec
+//        recyclerViewAdapter = new RecyclerViewAdapter(this, listItems);
+//        recyclerView.setAdapter(recyclerViewAdapter);
+//        recyclerViewAdapter.notifyDataSetChanged();
     }
 }
