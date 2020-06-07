@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     private List<Timer> timerList;
-    public List<Timer> listItems;
+    private List<Timer> listItems;
     private Timer deletedTimer = null;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -113,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
         interstitialAd.setAdListener(new AdListener(){
             @Override
             public void onAdClosed(){
+                interstitialAd.loadAd(new AdRequest.Builder().build());
                 if (nextIntent != listItems.size()-1) {
-                    interstitialAd.loadAd(new AdRequest.Builder().build());
                     restIntent();
                 } else {
                     interstitialAds();
@@ -243,7 +243,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (nextIntent != timerList.size()-1) {
+        //if (nextIntent != listItems.size()-1) {
+//            interstitialAds();
             if (requestCode == 1) {
                 if (resultCode == RESULT_OK) {
                     //todo: start admob then move onto the next activity
@@ -263,9 +264,10 @@ public class MainActivity extends AppCompatActivity {
 //
 //                    startActivityForResult(restIntent, 1);
                     interstitialAds();
+//                    restIntent();
                 }
             }
-        }
+//        }
     }
 
     @Override

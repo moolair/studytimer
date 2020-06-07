@@ -72,6 +72,8 @@ public class CountdownActivity extends AppCompatActivity {
             startTimer();
         }
 
+
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +85,7 @@ public class CountdownActivity extends AppCompatActivity {
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mTimerRunning)
+                if (!mTimerRunning)
                     startTimer();
             }
         });
@@ -107,10 +109,10 @@ public class CountdownActivity extends AppCompatActivity {
 //
 //    }
 
-    private void setTime(long milliSeconds){
-        mTimeLeftInMillis = milliSeconds;
-//        resetTimer();
-    }
+//    private void setTime(long milliSeconds){
+//        mTimeLeftInMillis = milliSeconds;
+////        resetTimer();
+//    }
 
     public void pauseTimer(){
         countDownTimer.cancel();
@@ -141,8 +143,9 @@ public class CountdownActivity extends AppCompatActivity {
 //                    setResult(RESULT_CANCELED, restIntent);
 //                }else {
 //                    restTime = 0;
-                    Intent resultIntent = new Intent();
-                    setResult(RESULT_OK, resultIntent);
+
+                Intent resultIntent = new Intent();
+                setResult(RESULT_OK, resultIntent);
 //                }
                 finish();
             }
