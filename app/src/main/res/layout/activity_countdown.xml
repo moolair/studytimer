@@ -53,7 +53,7 @@
         android:layout_margin="@dimen/mb_margin"
         android:background="@drawable/ic_play_arrow"
         android:visibility="invisible"
-        tools:visibility="visible"/>
+        tools:visibility="invisible"/>
 
     <ImageButton
         android:id="@+id/pauseButton"
@@ -63,6 +63,6 @@
         android:layout_margin="@dimen/mb_margin"
         android:background="@drawable/ic_pause"
         android:visibility="visible"
-        tools:visibility="invisible"/>
+        tools:visibility="visible"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

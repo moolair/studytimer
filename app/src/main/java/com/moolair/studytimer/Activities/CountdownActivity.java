@@ -77,16 +77,16 @@ public class CountdownActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mTimerRunning)
-                    pauseTimer();
+                if (!mTimerRunning)
+                    startTimer();
             }
         });
 
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mTimerRunning)
-                    startTimer();
+                if (mTimerRunning)
+                    pauseTimer();
             }
         });
 
@@ -143,6 +143,8 @@ public class CountdownActivity extends AppCompatActivity {
 //                    setResult(RESULT_CANCELED, restIntent);
 //                }else {
 //                    restTime = 0;
+                startButton.setVisibility(View.INVISIBLE);
+                pauseButton.setVisibility(View.VISIBLE);
 
                 Intent resultIntent = new Intent();
                 setResult(RESULT_OK, resultIntent);
