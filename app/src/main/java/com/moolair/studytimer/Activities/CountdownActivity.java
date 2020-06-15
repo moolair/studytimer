@@ -1,7 +1,5 @@
 package com.moolair.studytimer.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -12,7 +10,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.moolair.studytimer.Data.DBHandler;
 import com.moolair.studytimer.R;
 
@@ -25,6 +22,8 @@ public class CountdownActivity extends AppCompatActivity {
     private String countdownMinute;
     private ImageButton startButton;
     private ImageButton pauseButton;
+    private long backPressedTime;
+    private Toast backToast;
 
     //timer
     private CountDownTimer countDownTimer;
@@ -50,6 +49,8 @@ public class CountdownActivity extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
+        ActionBar actionBar = getSupportActionBar();
+
         countdownTime = findViewById(R.id.countdownTimer);
         countdownSubject = findViewById(R.id.countdownSubject);
         startButton = findViewById(R.id.startButton);
@@ -63,6 +64,9 @@ public class CountdownActivity extends AppCompatActivity {
             countdownSubject.setText(bundle.getString("subject"));
             countdownHour = bundle.getString("hour");
             countdownMinute = bundle.getString("minute");
+            actionBar.setTitle(countdownSubject.getText());
+//            actionBar.setDisplayHomeAsUpEnabled(true); --set onClickListener??
+
 
             //todo: it's able to setup a time. try to run a timer with proper hour and minute time.
             //todo: ********************for now, May 27, 2020. Change this back to the bottom mTimeLestInMillis.*********************
@@ -71,8 +75,6 @@ public class CountdownActivity extends AppCompatActivity {
 
             startTimer();
         }
-
-
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +93,27 @@ public class CountdownActivity extends AppCompatActivity {
         });
 
         updateTimer();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (backPressedTime + 2000 > System.currentTimeMillis()){
+            backToast.cancel();
+            super.onBackPressed();
+
+            //todo: bundle, ActivityResult, requestCode to update textView on MainPage?
+            //todo: MainActivity Timer Intent 참조
+            //todo: 일단, 올릴까? click to edit the time 하고?
+
+            return;
+        } else {
+            backToast = Toast.makeText(getBaseContext(), "Press back again to go Main page",
+                    Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+
+        backPressedTime = System.currentTimeMillis();
     }
 
     private int totalTime(String countdownHour, String countdownMinute) {

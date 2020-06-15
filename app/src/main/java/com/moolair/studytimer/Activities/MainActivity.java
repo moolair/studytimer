@@ -2,16 +2,15 @@ package com.moolair.studytimer.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.moolair.studytimer.Data.DBHandler;
-import com.moolair.studytimer.Model.Timer;
-import com.moolair.studytimer.R;
-import com.moolair.studytimer.UI.RecyclerViewAdapter;
+import android.os.Handler;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,19 +22,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.util.Log;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.material.snackbar.Snackbar;
+import com.moolair.studytimer.Data.DBHandler;
+import com.moolair.studytimer.Model.Timer;
+import com.moolair.studytimer.R;
+import com.moolair.studytimer.UI.RecyclerViewAdapter;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -288,6 +284,11 @@ public class MainActivity extends AppCompatActivity {
 
                 createPopupDialog();
                 return true;
+//            case R.id.home:
+////                onUpButtonPressed();
+//                Toast.makeText(getBaseContext(), "Press back again to exit",
+//                        Toast.LENGTH_SHORT);
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
