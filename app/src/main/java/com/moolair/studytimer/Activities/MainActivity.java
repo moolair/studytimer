@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     private List<Timer> timerList;
-    private List<Timer> listItems;
+    public List<Timer> listItems;
     private Timer deletedTimer = null;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         for (Timer c: timerList){
             Timer timer = new Timer();
             timer.setSubject(c.getSubject());
-            timer.setHour(c.getHour() + " :");
+            timer.setHour(c.getHour());
             timer.setMinute(c.getMinute());
             timer.setId(c.getId());
 
@@ -224,15 +224,18 @@ public class MainActivity extends AppCompatActivity {
             listItems.remove(position);
             recyclerViewAdapter.deleteItem(deletedTimer.getId());
 
+            //todo: what if I add time? in order for it to take an effect of deletion.
             recyclerViewAdapter.notifyItemRemoved(position);
             Snackbar.make(recyclerView, deletedTimer.getSubject(), Snackbar.LENGTH_LONG)
                     .setAction("Undo", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             listItems.add(position, deletedTimer);
+                            recyclerViewAdapter.reAddItem(deletedTimer);
                             recyclerViewAdapter.notifyItemInserted(position);
                         }
                     }).show();
+
         }
     };
 
@@ -345,7 +348,7 @@ public class MainActivity extends AppCompatActivity {
         timer.setMinute(newMinute);
 
         //Save to DB
-        db.addTimer(timer);
+        db.addTimer(timer, false);
 
         Snackbar.make(v, "Item Saved!", Snackbar.LENGTH_LONG).show();
 

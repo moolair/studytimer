@@ -36,11 +36,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/minuteDisplay"
-                android:paddingRight="5dp"
+                android:layout_toLeftOf="@+id/colon"
+                android:paddingRight="3dp"
                 android:text="Hour"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/colon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/minuteDisplay"
+                android:paddingRight="3dp"
+                android:text=":"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
 
             <TextView
                 android:id="@+id/minuteDisplay"
@@ -52,8 +64,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!--            Todo: Step by Step: RecyclerView Swipe to Delete and Undo
-https://medium.com/@zackcosborn/step-by-step-recyclerview-swipe-to-delete-and-undo-7bbae1fce27e-->
+<!--todo: progressbar-->
             <ProgressBar
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"

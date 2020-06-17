@@ -47,10 +47,12 @@ public class DBHandler extends SQLiteOpenHelper {
      */
 
     //Add Timer
-    public void addTimer(Timer timer){
+    public void addTimer(Timer timer, boolean undo){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        if (undo)
+            values.put(constants.KEY_ID, timer.getId());
         values.put(constants.KEY_TIMER_ITEM, timer.getSubject());
         values.put(constants.KEY_HOUR_ADDED, timer.getHour());
         values.put(constants.KEY_MINUTE_ADDED, timer.getMinute());
@@ -59,6 +61,21 @@ public class DBHandler extends SQLiteOpenHelper {
         db.insert(constants.TABLE_NAME, null, values);
         Log.d("Saved!", "Saved to db");
     }
+
+    //Add Timer
+//    public void reAddTimer(Timer timer){
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        ContentValues values = new ContentValues();
+//        values.put(constants.KEY_ID, timer.getId());
+//        values.put(constants.KEY_TIMER_ITEM, timer.getSubject());
+//        values.put(constants.KEY_HOUR_ADDED, timer.getHour());
+//        values.put(constants.KEY_MINUTE_ADDED, timer.getMinute());
+//
+//        //Insert the row
+//        db.insert(constants.TABLE_NAME, null, values);
+//        //Log.d("Saved!", "Saved to db");
+//    }
 
     //Get a Timer
     public Timer getTimer(int id){

@@ -96,4 +96,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         //todo: undo fix.
     }
+
+    public void reAddItem(Timer timer){
+        DBHandler db = new DBHandler(context);
+        db.addTimer(timer, true);
+    }
 }
