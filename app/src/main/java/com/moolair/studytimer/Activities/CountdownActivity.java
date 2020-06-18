@@ -123,10 +123,6 @@ public class CountdownActivity extends AppCompatActivity {
         return ((Integer.parseInt(countdownHour) * 60) + Integer.parseInt(countdownMinute))*60000;
     }
 
-    //todo: - in countdownActivity, when press start it should countdown the time.
-    // time needs to be grabbed from id=1. then, once it's finished it should move onto rest time. and so and so forth until the last id.
-    // YJ: May 14, 2020
-
 //    public void startStop() {
 //        if(mTimerRunning)
 //            stopTimer();

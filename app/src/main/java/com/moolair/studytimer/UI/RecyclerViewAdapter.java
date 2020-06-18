@@ -4,12 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.moolair.studytimer.Activities.MainActivity;
 import com.moolair.studytimer.Data.DBHandler;
 import com.moolair.studytimer.R;
 import com.moolair.studytimer.Model.Timer;
@@ -76,7 +79,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 public void onClick(View v){
                     //todo: when pressed, time and title can be fixed. Call PopupDialog to fix.
                     // Take the value from here and edit.
-                    Toast.makeText(context, "this is pressed", Toast.LENGTH_SHORT).show();
+
+                    updatePopupDialog();
                 }
             });
 
@@ -87,6 +91,37 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         }
 
+
+    }
+
+    private void updatePopupDialog(){
+        //todo: click to popup the dialog and edit then save.
+        //todo: total time show on start?
+        //todo: start an interstitial ad before starting the study.
+        Toast.makeText(context, "this is pressed", Toast.LENGTH_SHORT).show();
+//        dialogBuilder = new AlertDialog.Builder(this);
+//        View v = getLayoutInflater().inflate(R.layout.activity_popup, null);
+//        studySubject = v.findViewById(R.id.subjectItem);
+//        hour = v.findViewById(R.id.hourID);
+//        minute = v.findViewById(R.id.minuteID);
+//
+//        saveItem = (Button) v.findViewById(R.id.saveItem);
+//
+//        dialogBuilder.setView(v);
+//        dialog = dialogBuilder.create();
+//
+//        dialog.show();
+//
+//
+//        saveItem.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!studySubject.getText().toString().isEmpty())
+//                    saveItemToDB(v);
+//            }
+//
+//
+//        });
 
     }
 

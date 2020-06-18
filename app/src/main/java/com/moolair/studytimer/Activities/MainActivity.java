@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void createPopupDialog(){
+    public void createPopupDialog(){
 
         dialogBuilder = new AlertDialog.Builder(this);
         View v = getLayoutInflater().inflate(R.layout.activity_popup, null);
