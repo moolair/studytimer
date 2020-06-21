@@ -301,11 +301,11 @@ public class MainActivity extends AppCompatActivity {
 
         dialogBuilder = new AlertDialog.Builder(this);
         View v = getLayoutInflater().inflate(R.layout.activity_popup, null);
+
         studySubject = v.findViewById(R.id.subjectItem);
         hour = v.findViewById(R.id.hourID);
         minute = v.findViewById(R.id.minuteID);
-
-        saveItem = (Button) v.findViewById(R.id.saveItem);
+        saveItem = v.findViewById(R.id.saveItem);
 
         dialogBuilder.setView(v);
         dialog = dialogBuilder.create();
@@ -329,12 +329,9 @@ public class MainActivity extends AppCompatActivity {
         Timer timer = new Timer();
 
         String newTimer = studySubject.getText().toString();
-//        if (newTimer.isEmpty()){
-//            Toast.makeText(MainActivity.this, "Field can't be empty", Toast.LENGTH_SHORT).show();
-//            return;
-//        } //importantForAutoFill = no on EditText
         String newHour = hour.getText().toString(); //mEditTextInput
         String newMinute = minute.getText().toString();
+
         if(newMinute.equals("00") || newMinute.equals("0")) {
             Toast.makeText(MainActivity.this, "It can't be 0 minute", Toast.LENGTH_SHORT).show();
             return;
