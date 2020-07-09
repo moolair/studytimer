@@ -204,15 +204,15 @@ public class CountdownActivity extends AppCompatActivity {
 //        return totalTime;
     }
 
-    private void updateButtons(){
-        if (mTimerRunning){
-            startButton.setVisibility(View.INVISIBLE);
-            pauseButton.setVisibility(View.VISIBLE);
-        } else {
-            startButton.setVisibility(View.VISIBLE);
-            pauseButton.setVisibility(View.INVISIBLE);
-
-//            if (mTime)
-        }
-    }
+//    private void updateButtons(){
+//        if (mTimerRunning){
+//            startButton.setVisibility(View.INVISIBLE);
+//            pauseButton.setVisibility(View.VISIBLE);
+//        } else {
+//            startButton.setVisibility(View.VISIBLE);
+//            pauseButton.setVisibility(View.INVISIBLE);
+//
+////            if (mTime)
+//        }
+//    }
 }

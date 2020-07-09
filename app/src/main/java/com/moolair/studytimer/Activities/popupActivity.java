@@ -2,7 +2,9 @@ package com.moolair.studytimer.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.os.Bundle;
+
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -27,8 +29,8 @@ public class popupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_popup);
 
 //    //popup syntax create
-        hour = (TextView) findViewById(R.id.hourID);
-        minute = (TextView) findViewById(R.id.minuteID);
+        hour = findViewById(R.id.hourID);
+        minute = findViewById(R.id.minuteID);
     //        scrollHour = (Slider) findViewById(R.id.scrollHour);
 
     }
