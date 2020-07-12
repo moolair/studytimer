@@ -29,7 +29,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private Context context;
     private List<Timer> timerItems;
 
-    private TextView updateSubject;
+    private EditText updateSubject;
     private EditText updateHour;
     private EditText updateMinute;
     private Button updateItem;
