@@ -221,8 +221,8 @@ public class MainActivity extends AppCompatActivity {
             final int position = viewHolder.getAdapterPosition();
 
             deletedTimer = listItems.get(position);
-            listItems.remove(position);
-            recyclerViewAdapter.deleteItem(deletedTimer.getId());
+            //listItems.remove(position);
+            recyclerViewAdapter.deleteItem(deletedTimer.getId(), position);
 
             //todo: what if I add time? in order for it to take an effect of deletion.
             recyclerViewAdapter.notifyItemRemoved(position);
@@ -230,8 +230,9 @@ public class MainActivity extends AppCompatActivity {
                     .setAction("Undo", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            listItems.add(position, deletedTimer);
-                            recyclerViewAdapter.reAddItem(deletedTimer);
+//                            listItems.add(position, deletedTimer);
+//                            recyclerViewAdapter.reAddItem(deletedTimer);
+                            recyclerViewAdapter.reAddItem(deletedTimer, position);
                             recyclerViewAdapter.notifyItemInserted(position);
                         }
                     }).show();

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ public class popupActivity extends AppCompatActivity {
     private TextView subject;
     private TextView hour;
     private TextView minute;
+    private Button saveItem;
     private int timerID;
 //    float minHr = 0, maxHr = 24, currentHr = 0;
     //int   minMin = 1, maxMin = 60, currentMin = 45;
@@ -33,6 +35,7 @@ public class popupActivity extends AppCompatActivity {
         subject = findViewById(R.id.subjectItem);
         hour = findViewById(R.id.hourID);
         minute = findViewById(R.id.minuteID);
+        saveItem = findViewById(R.id.saveItem);
     //        scrollHour = (Slider) findViewById(R.id.scrollHour);
 
         Bundle bundle = getIntent().getExtras();

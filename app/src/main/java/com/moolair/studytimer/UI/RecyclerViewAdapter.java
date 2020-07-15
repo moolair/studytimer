@@ -29,13 +29,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private Context context;
     private List<Timer> timerItems;
 
-    private EditText updateSubject;
-    private EditText updateHour;
-    private EditText updateMinute;
-    private Button updateItem;
+//    private EditText updateSubject;
+//    private EditText updateHour;
+//    private EditText updateMinute;
+//    private Button updateItem;
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
+    private LayoutInflater inflater;
 
     public RecyclerViewAdapter(Context context, List<Timer> timerItems) {
         this.context = context;
@@ -55,7 +56,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
         Timer timer = timerItems.get(position);
 
-        holder.timerItemName.setText(timer.getSubject());
+        holder.updateSubject.setText(timer.getSubject());
         holder.hour.setText(timer.getHour());
         holder.minute.setText(timer.getMinute());
     }
@@ -66,9 +67,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView timerItemName;
+        public TextView updateSubject;
         public TextView hour;
         public TextView minute;
+        public Button updateButton;
         public int id;
 
         //slide to delete or edit
@@ -80,9 +82,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             context = ctx;
 
-            timerItemName = view.findViewById(R.id.subjectName);
+            updateSubject = view.findViewById(R.id.subjectName);
             hour = view.findViewById(R.id.hourDisplay);
             minute = view.findViewById(R.id.minuteDisplay);
+            updateButton = view.findViewById(R.id.saveItem);
 
             //slide onclickListener
 
@@ -96,17 +99,39 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 //                    updatePopupDialog(v);
                     //take them to popup activity - App Grocery List part 9 Udemy
-                    //todo: udpate popupAcivity to accept the value and update.
-                    int position = getAdapterPosition();
+                    //todo: udpate popupAcivity to accept the value and update
+//--------------------------------working copy-----------------------------------------------
+//                    int position = getAdapterPosition();
+//
+//                    Timer timer = timerItems.get(position);
+//                    Intent updateIntent = new Intent(context, popupActivity.class);
+//                    updateIntent.putExtra("subject", timer.getSubject());
+//                    updateIntent.putExtra("hour", timer.getHour());
+//                    updateIntent.putExtra("minute", timer.getMinute());
+//                    updateIntent.putExtra("id", timer.getId());
+//
+//                    context.startActivity(updateIntent);
+//--------------------------------working copy-----------------------------------------------
+                dialogBuilder = new AlertDialog.Builder(context);
 
-                    Timer timer = timerItems.get(position);
-                    Intent updateIntent = new Intent(context, popupActivity.class);
-                    updateIntent.putExtra("subject", timer.getSubject());
-                    updateIntent.putExtra("hour", timer.getHour());
-                    updateIntent.putExtra("minute", timer.getMinute());
-                    updateIntent.putExtra("id", timer.getId());
+                inflater = LayoutInflater.from(context);
+                View view = inflater.inflate(R.layout.activity_popup, null);
 
-                    context.startActivity(updateIntent);
+//                updateSubject = view.findViewById(R.id.subjectName);
+//                hour = view.findViewById(R.id.hourDisplay);
+//                minute = view.findViewById(R.id.minuteDisplay);
+
+                dialogBuilder.setView(view);
+                dialog = dialogBuilder.create();
+                dialog.show();
+
+//                updateButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        dialog.dismiss();
+//                    }
+//                });
+
 
                 }
             });
@@ -142,7 +167,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //        view = LayoutInflater.from().getLayoutInflater().inflate(R.layout.activity_popup, null);
 
 
-        updateItem = view.findViewById(R.id.saveItem);
+//        updateButton = view.findViewById(R.id.saveItem);
 
         dialogBuilder.setView(view);
         dialog = dialogBuilder.create();
@@ -162,15 +187,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     }
 
-    public void deleteItem(int id) {
+    public void deleteItem(int id, int position) {
         DBHandler db = new DBHandler(context);
         db.deleteTimer(id);
+        timerItems.remove(position);
 
         //todo: undo fix.
     }
 
-    public void reAddItem(Timer timer){
+    public void reAddItem(Timer timer, int position){
         DBHandler db = new DBHandler(context);
         db.addTimer(timer, true);
+        timerItems.add(position, timer);
     }
 }
