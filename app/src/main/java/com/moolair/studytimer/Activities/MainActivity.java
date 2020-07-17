@@ -348,28 +348,28 @@ public class MainActivity extends AppCompatActivity {
         //Save to DB
         db.addTimer(timer, false);
 
-        Snackbar.make(v, "Item Saved!", Snackbar.LENGTH_LONG).show();
+        //dialog.dismiss();
 
-//        Log.d("Item Added ID: ", String.valueOf(db.getTimersCount()));
+        Log.d("Item Added ID: ", String.valueOf(db.getTimersCount()));
+
+        /*todo: udpate recylcerView data to display updated cardview.
+            For now, it will start Activity in order to refresh the recyclerview.
+            However, I need to figure out how to refresh the page properly.
+            YJ: May 2, 2020
+            If back button is pressed, it goes to the previous state (no time shows)
+            YJ: May 13, 2020
+         */
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                /*todo: udpate recylcerView data to display updated cardview.
-                    For now, it will start Activity in order to refresh the recyclerview.
-                    However, I need to figure out how to refresh the page properly.
-                    YJ: May 2, 2020
-                    If back button is pressed, it goes to the previous state (no time shows)
-                    YJ: May 13, 2020
-                 */
 
                 dialog.dismiss();
                 startActivity(new Intent(MainActivity.this, MainActivity.class));
 //                return;
 
-
             }
         }, 500); //.5 sec
+        Snackbar.make(v, "Item Saved!", Snackbar.LENGTH_LONG).show();
 //        recyclerViewAdapter = new RecyclerViewAdapter(this, listItems);
 //        recyclerView.setAdapter(recyclerViewAdapter);
 //        recyclerViewAdapter.notifyDataSetChanged();

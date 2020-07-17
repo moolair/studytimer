@@ -3,6 +3,7 @@ package com.moolair.studytimer.UI;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.moolair.studytimer.Activities.MainActivity;
 import com.moolair.studytimer.Activities.popupActivity;
 import com.moolair.studytimer.Data.DBHandler;
@@ -112,35 +114,38 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //
 //                    context.startActivity(updateIntent);
 //--------------------------------working copy-----------------------------------------------
-                dialogBuilder = new AlertDialog.Builder(context);
+                    dialogBuilder = new AlertDialog.Builder(context);
 
-                inflater = LayoutInflater.from(context);
-                View view = inflater.inflate(R.layout.activity_popup, null);
+                    inflater = LayoutInflater.from(context);
+                    View view = inflater.inflate(R.layout.activity_popup, null);
 
-//                int position = getAdapterPosition();
-//                Timer timer = timerItems.get(position);
-                //This is for popupActivity
-                updateSubject = view.findViewById(R.id.subjectItem);
-                updateHour = view.findViewById(R.id.hourID);
-                updateMinute = view.findViewById(R.id.minuteID);
-                updateButton = view.findViewById(R.id.saveItem);
+    //                int position = getAdapterPosition();
+    //                Timer timer = timerItems.get(position);
+                    //This is for popupActivity
+                    updateSubject = view.findViewById(R.id.subjectItem);
+                    updateHour = view.findViewById(R.id.hourID);
+                    updateMinute = view.findViewById(R.id.minuteID);
+                    updateButton = view.findViewById(R.id.saveItem);
 
-                updateSubject.setText(timerItems.get(getAdapterPosition()).getSubject());
-                updateHour.setText(timerItems.get(getAdapterPosition()).getHour());
-                updateMinute.setText(timerItems.get(getAdapterPosition()).getMinute());
+                    updateSubject.setText(timerItems.get(getAdapterPosition()).getSubject());
+                    updateHour.setText(timerItems.get(getAdapterPosition()).getHour());
+                    updateMinute.setText(timerItems.get(getAdapterPosition()).getMinute());
 
-                dialogBuilder.setView(view);
-                dialog = dialogBuilder.create();
-                dialog.show();
+                    dialogBuilder.setView(view);
+                    dialog = dialogBuilder.create();
+                    dialog.show();
 
-                updateButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //update the db.
-                    }
-                });
+                    updateButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int position = getAdapterPosition();
+                            Timer timer = timerItems.get(position);
 
-
+                            if (!updateSubject.getText().toString().isEmpty())
+                                updateItemToDB(v, timer);
+                            dialog.dismiss();
+                        }
+                    });
                 }
             });
 
@@ -154,44 +159,61 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     }
 
-    private void updatePopupDialog(View view){
-        //todo: click to popup the dialog and edit then save.
-        //todo: total time show on start?
-        //todo: start an interstitial ad before starting the study.
-        Toast.makeText(context, "this is pressed", Toast.LENGTH_SHORT).show();
+    private void updateItemToDB(View view, Timer timer){
+        DBHandler db = new DBHandler(context);
 
-        //todo: inflate을 써서, popup을 이용.
+        //update item
+        timer.setSubject(updateSubject.getText().toString());
+        timer.setHour(updateHour.getText().toString());
+        timer.setMinute(updateMinute.getText().toString());
 
-//        View v = getLayoutInflater().inflate(R.layout.activity_popup, null);
+        if (!updateSubject.getText().toString().isEmpty() && !updateHour.getText().toString().isEmpty()){
+            db.updateTimer(timer);
+            notifyDataSetChanged();
+        }else
+            Snackbar.make(view, "Update Subject, hour or minute", Snackbar.LENGTH_LONG).show();
 
-//        Intent updateIntent = new Intent(context, popupActivity.class);
-//        updateIntent.putExtra("subject", updateSubject.getText().toString());
-//        updateIntent.putExtra("hour", updateHour.getText().toString());
-//        updateIntent.putExtra("minute", updateMinute.getText().toString());
-
-//        startActivityResult
-
-        dialogBuilder = new AlertDialog.Builder(context);
-//        view = LayoutInflater.from().getLayoutInflater().inflate(R.layout.activity_popup, null);
-
-
-//        updateButton = view.findViewById(R.id.saveItem);
-
-        dialogBuilder.setView(view);
-        dialog = dialogBuilder.create();
-
-        dialog.show();
+//        String newTimer = updateSubject.getText().toString();
+//        String newHour = updateHour.getText().toString(); //mEditTextInput
+//        String newMinute = updateMinute.getText().toString();
 //
+//        if(newMinute.equals("00") || newMinute.equals("0")) {
+//            Toast.makeText(context, "It can't be 0 minute", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
 //
-//        saveItem.setOnClickListener(new View.OnClickListener() {
+////        calculateTotal = (Integer.parseInt(newHour) * 60) + Integer.parseInt(newMinute);
+////        Toast.makeText(MainActivity.this, Integer.toString(calculateTotal), Toast.LENGTH_SHORT).show();
+//
+//        timer.setSubject(newTimer);
+//        timer.setHour(newHour);
+//        timer.setMinute(newMinute);
+//
+//        //Save to DB
+//        db.addTimer(timer, false);
+//
+//        Snackbar.make(v, "Item Saved!", Snackbar.LENGTH_LONG).show();
+//
+////        Log.d("Item Added ID: ", String.valueOf(db.getTimersCount()));
+//        new Handler().postDelayed(new Runnable() {
 //            @Override
-//            public void onClick(View v) {
-//                if (!studySubject.getText().toString().isEmpty())
-//                    saveItemToDB(v);
+//            public void run() {
+//
+//                /*todo: udpate recylcerView data to display updated cardview.
+//                    For now, it will start Activity in order to refresh the recyclerview.
+//                    However, I need to figure out how to refresh the page properly.
+//                    YJ: May 2, 2020
+//                    If back button is pressed, it goes to the previous state (no time shows)
+//                    YJ: May 13, 2020
+//                 */
+//
+//                dialog.dismiss();
+//                startActivity(new Intent(MainActivity.this, MainActivity.class));
+////                return;
+//
+//
 //            }
-//
-//
-//        });
+//        }, 500); //.5 sec
 
     }
 
