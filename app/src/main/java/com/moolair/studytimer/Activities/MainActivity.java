@@ -1,6 +1,10 @@
 package com.moolair.studytimer.Activities;
 
 import android.content.Intent;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -73,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
     //Interstitial Admob
     private InterstitialAd interstitialAd;
 
+    //Sounds
+    private SoundPool soundPool;
+    private int startSound, stopSound;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +92,27 @@ public class MainActivity extends AppCompatActivity {
          setContentView(R.layout.logo_main); --for 2 seconds? then ad page
          */
 
+        //Sound create
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            AudioAttributes audioAttributes =
+                    new AudioAttributes.Builder()
+                            .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+                            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build();
+
+            soundPool = new SoundPool.Builder()
+                    .setMaxStreams(1)
+                    .setAudioAttributes(audioAttributes)
+                    .build();
+        } else {
+            soundPool = new SoundPool(1, AudioManager.STREAM_NOTIFICATION, 0);
+        }
+
+        startSound = soundPool.load(this, R.raw.start_whistle, 1);
+        stopSound = soundPool.load(this, R.raw.finish_harp, 1);
+
+
+        //craete db
         db = new DBHandler(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -182,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void timerIntent(){
+        soundPool.play(startSound, 1, 1, 0, 0, 1);
         Timer timer = listItems.get(nextIntent); //todo: take the value and do the loop of the whole process until the last subject. May 20, 2020
         Intent intent = new Intent(MainActivity.this, CountdownActivity.class);
         intent.putExtra("subject", timer.getSubject());
@@ -263,6 +293,8 @@ public class MainActivity extends AppCompatActivity {
 //                    //                    intent.putExtra("id", timer.getId());
 //
 //                    startActivityForResult(restIntent, 1);
+                    //Finish sound starts with interstitialAds.
+                    soundPool.play(stopSound, 1, 1, 0, 0, 1);
                     interstitialAds();
 //                    restIntent();
                 }
