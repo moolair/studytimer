@@ -8,7 +8,7 @@
     android:background="@android:color/black"
     tools:context=".Activities.MainActivity">
 
-    //AppBarLayout is always on top of layers, components or layouts
+<!--    AppBarLayout is always on top of layers, components or layouts-->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -46,9 +46,11 @@
                     android:layout_weight="30">
 
                     <RelativeLayout
+                        android:id="@+id/restView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:layout_margin="5dp"
                         android:layout_alignParentBottom="true">
 
                         <TextView
@@ -60,7 +62,7 @@
                             android:text="@string/restTime"
                             android:textSize="15sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <TextView
                             android:id="@+id/hourRest"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -81,7 +83,7 @@
                             android:text=":"
                             android:textSize="15sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <TextView
                             android:id="@+id/minuteRest"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

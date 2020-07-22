@@ -1,6 +1,8 @@
 package com.moolair.studytimer.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -8,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
+    private LayoutInflater inflater;
 
 //    private MaterialButton add_timer;
     private Button saveItem;
@@ -66,9 +71,15 @@ public class MainActivity extends AppCompatActivity {
 
     //Rest Time
 //    int restTime = 0;
-    private TextView restSubject;
-    private EditText restHour;
-    private EditText restMinute;
+    public CardView restCardView;
+    public TextView restSubject;
+    public TextView restHour;
+    public TextView restMinute;
+
+    public EditText restTempSubject;
+    public EditText restTempHour;
+    public EditText restTempMinute;
+
 //    private int calculateTotal;
 //    private boolean timerRunning;
 //    private CountDownTimer countDownTimer;
@@ -126,9 +137,17 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
         //Rest time
+        restCardView = findViewById(R.id.restCardView);
         restSubject = findViewById(R.id.restID);
         restHour = findViewById(R.id.hourRest);
         restMinute = findViewById(R.id.minuteRest);
+
+        restCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateRestDialog();
+            }
+        });
 
         //interstitial Admob
         interstitialAd = new InterstitialAd(this);
@@ -273,33 +292,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //if (nextIntent != listItems.size()-1) {
-//            interstitialAds();
             if (requestCode == 1) {
                 if (resultCode == RESULT_OK) {
-                    //todo: start admob then move onto the next activity
+                    //Starting each timer
                     nextIntent++;
-                    //todo: add rest time before starting timerList
-                    //                    restTime = 0;
                     timerIntent();
 
                 }
             } else {
                 if (resultCode == RESULT_OK) {
-//                    Intent restIntent = new Intent(MainActivity.this, CountdownActivity.class);
-//                    restIntent.putExtra("subject", restSubject.getText().toString());
-//                    restIntent.putExtra("hour", restHour.getText().toString());
-//                    restIntent.putExtra("minute", restMinute.getText().toString());
-//                    //                    intent.putExtra("id", timer.getId());
-//
-//                    startActivityForResult(restIntent, 1);
+                    //Starting Ads before running rest timer, restIntent().
                     //Finish sound starts with interstitialAds.
                     soundPool.play(stopSound, 1, 1, 0, 0, 1);
                     interstitialAds();
-//                    restIntent();
                 }
             }
-//        }
     }
 
     @Override
@@ -330,6 +337,56 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //updating rest dialog
+    public void updateRestDialog(){
+        dialogBuilder = new AlertDialog.Builder(this);
+
+        inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.activity_popup, null);
+
+        restTempSubject = view.findViewById(R.id.subjectItem);
+        restTempHour = view.findViewById(R.id.hourID);
+        restTempMinute = view.findViewById(R.id.minuteID);
+        saveItem = view.findViewById(R.id.saveItem);
+
+        restTempSubject.setText(restSubject.getText().toString());
+        restTempHour.setText(restHour.getText().toString());
+        restTempMinute.setText(restMinute.getText().toString());
+
+        dialogBuilder.setView(view);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        saveItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                int position = getAdapterPosition();
+//                Timer timer = timerItems.get(position);
+
+                String newRestTimer = restTempSubject.getText().toString();
+                String newRestHour = restTempHour.getText().toString();
+                String newRestMinute = restTempMinute.getText().toString();
+
+                //minutes can't be 0 or null or empty
+                if(newRestMinute.equals("00") || newRestMinute.equals("0") || newRestMinute.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "It can't be 0 minute", Toast.LENGTH_SHORT).show();
+                    return;
+                //subject can't be empty
+                } else if (newRestTimer.isEmpty()){
+                    Toast.makeText(MainActivity.this, "Subject can't be empty",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                } else{
+                    restSubject.setText(newRestTimer);
+                    restHour.setText(newRestHour);
+                    restMinute.setText(newRestMinute);
+
+                    dialog.dismiss();
+                }
+            }
+        });
+    }
+
     public void createPopupDialog(){
 
         dialogBuilder = new AlertDialog.Builder(this);
@@ -342,6 +399,7 @@ public class MainActivity extends AppCompatActivity {
 
         dialogBuilder.setView(v);
         dialog = dialogBuilder.create();
+//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         dialog.show();
 
@@ -349,10 +407,19 @@ public class MainActivity extends AppCompatActivity {
         saveItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            if (!studySubject.getText().toString().isEmpty())
-                saveItemToDB(v);
+                if (studySubject.getText().toString().isEmpty()){
+                    Toast.makeText(MainActivity.this, "Subject can't be empty",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }else if (minute.getText().toString().equals("00")
+                        || minute.getText().toString().equals("0")
+                        || minute.getText().toString().isEmpty()) {
+                    Toast.makeText(MainActivity.this, "It can't be 0 minute", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    saveItemToDB(v);
+                }
             }
-
 
         });
 
@@ -365,10 +432,10 @@ public class MainActivity extends AppCompatActivity {
         String newHour = hour.getText().toString(); //mEditTextInput
         String newMinute = minute.getText().toString();
 
-        if(newMinute.equals("00") || newMinute.equals("0")) {
-            Toast.makeText(MainActivity.this, "It can't be 0 minute", Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        if(newMinute.equals("00") || newMinute.equals("0")) {
+//            Toast.makeText(MainActivity.this, "It can't be 0 minute", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
 
 //        calculateTotal = (Integer.parseInt(newHour) * 60) + Integer.parseInt(newMinute);
 //        Toast.makeText(MainActivity.this, Integer.toString(calculateTotal), Toast.LENGTH_SHORT).show();

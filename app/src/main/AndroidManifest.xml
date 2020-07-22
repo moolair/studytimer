@@ -31,6 +31,7 @@
         </activity>
         <activity
             android:name=".Activities.popupActivity"
+            android:theme="@style/AppTheme.Popup"
             android:label="Timer" />
 
         <meta-data
