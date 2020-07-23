@@ -355,6 +355,7 @@ public class MainActivity extends AppCompatActivity {
 
         dialogBuilder.setView(view);
         dialog = dialogBuilder.create();
+//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.rgb(30,0,0)));
         dialog.show();
 
         saveItem.setOnClickListener(new View.OnClickListener() {
@@ -380,6 +381,7 @@ public class MainActivity extends AppCompatActivity {
                     restSubject.setText(newRestTimer);
                     restHour.setText(newRestHour);
                     restMinute.setText(newRestMinute);
+
 
                     dialog.dismiss();
                 }
