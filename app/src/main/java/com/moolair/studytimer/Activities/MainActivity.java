@@ -1,6 +1,7 @@
 package com.moolair.studytimer.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioAttributes;
@@ -151,7 +152,8 @@ public class MainActivity extends AppCompatActivity {
 
         //interstitial Admob
         interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        interstitialAd.setAdUnitId("ca-app-pub-8927512082902017/5298020641");
+//        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712"); for testing
         interstitialAd.loadAd(new AdRequest.Builder().build());
 
         interstitialAd.setAdListener(new AdListener(){
@@ -370,8 +372,17 @@ public class MainActivity extends AppCompatActivity {
 
                 //minutes can't be 0 or null or empty
                 if(newRestMinute.equals("00") || newRestMinute.equals("0") || newRestMinute.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "It can't be 0 minute", Toast.LENGTH_SHORT).show();
-                    return;
+                    if (newRestHour.equals("00") ||  newRestHour.equals("0") || newRestHour.isEmpty()){
+                        Toast.makeText(MainActivity.this, "Take some rest. It can't be 0 minute",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }else{
+                        restSubject.setText(newRestTimer);
+                        restHour.setText(newRestHour);
+                        restMinute.setText(newRestMinute);
+
+                        dialog.dismiss();
+                    }
                 //subject can't be empty
                 } else if (newRestTimer.isEmpty()){
                     Toast.makeText(MainActivity.this, "Subject can't be empty",
@@ -381,7 +392,6 @@ public class MainActivity extends AppCompatActivity {
                     restSubject.setText(newRestTimer);
                     restHour.setText(newRestHour);
                     restMinute.setText(newRestMinute);
-
 
                     dialog.dismiss();
                 }
@@ -416,8 +426,14 @@ public class MainActivity extends AppCompatActivity {
                 }else if (minute.getText().toString().equals("00")
                         || minute.getText().toString().equals("0")
                         || minute.getText().toString().isEmpty()) {
-                    Toast.makeText(MainActivity.this, "It can't be 0 minute", Toast.LENGTH_SHORT).show();
-                    return;
+                    if (hour.getText().toString().equals("00")
+                            || hour.getText().toString().equals("0")
+                            || hour.getText().toString().isEmpty()){
+                        Toast.makeText(MainActivity.this, "It can't be 0 minute", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        saveItemToDB(v);
+                    }
                 }else{
                     saveItemToDB(v);
                 }
@@ -475,4 +491,6 @@ public class MainActivity extends AppCompatActivity {
 //        recyclerView.setAdapter(recyclerViewAdapter);
 //        recyclerViewAdapter.notifyDataSetChanged();
     }
+
+
 }

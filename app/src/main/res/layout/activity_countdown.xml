@@ -16,7 +16,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/mb_margin"
         app:adSize="BANNER"
-        app:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        app:adUnitId="ca-app-pub-8927512082902017/9784060563">
     </com.google.android.gms.ads.AdView>
 
     <RelativeLayout

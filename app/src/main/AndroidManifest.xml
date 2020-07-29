@@ -12,9 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+<!--        Admob app ID-->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-8927512082902017~4408579067"/>
 
         <activity android:name=".Activities.CountdownActivity"/>
 <!--            android:parentActivityName=".Activities.MainActivity"-->

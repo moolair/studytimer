@@ -141,8 +141,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             int position = getAdapterPosition();
                             Timer timer = timerItems.get(position);
 
-                            if (!updateSubject.getText().toString().isEmpty())
+                            if (updateSubject.getText().toString().isEmpty()) {
+                                Toast.makeText(context, "Subject can't be empty", Toast.LENGTH_SHORT).show();
+                                return;
+                            } else if (updateMinute.getText().toString().equals("00")
+                                    || updateMinute.getText().toString().equals("0")
+                                    || updateMinute.getText().toString().isEmpty()) {
+                                if (updateHour.getText().toString().equals("00")
+                                        || updateHour.getText().toString().equals("0")
+                                        || updateHour.getText().toString().isEmpty()) {
+                                    Toast.makeText(context, "It can't be 0 minute", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }else {
+                                    updateItemToDB(v, timer);
+                                }
+                            } else{
                                 updateItemToDB(v, timer);
+                            }
                             dialog.dismiss();
                         }
                     });
@@ -167,11 +182,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         timer.setHour(updateHour.getText().toString());
         timer.setMinute(updateMinute.getText().toString());
 
-        if (!updateSubject.getText().toString().isEmpty() && !updateHour.getText().toString().isEmpty()){
-            db.updateTimer(timer);
-            notifyDataSetChanged();
-        }else
-            Snackbar.make(view, "Update Subject, hour or minute", Snackbar.LENGTH_LONG).show();
+//        if (!updateSubject.getText().toString().isEmpty() && !updateHour.getText().toString().isEmpty()){
+//            db.updateTimer(timer);
+//            notifyDataSetChanged();
+//        }else
+//            Snackbar.make(view, "Update Subject, hour or minute", Snackbar.LENGTH_LONG).show();
+        db.updateTimer(timer);
+        notifyDataSetChanged();
 
 //        String newTimer = updateSubject.getText().toString();
 //        String newHour = updateHour.getText().toString(); //mEditTextInput

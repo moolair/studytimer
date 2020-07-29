@@ -1,6 +1,7 @@
 package com.moolair.studytimer.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -31,8 +32,9 @@ public class CountdownActivity extends AppCompatActivity {
     //timer
     private CountDownTimer countDownTimer;
     private long mTimeLeftInMillis;
-    private long totalTime;
+//    private long totalTime;
     private boolean mTimerRunning;
+    private long mEndTime;
     int restTime = 0;
 
     //db
@@ -73,8 +75,8 @@ public class CountdownActivity extends AppCompatActivity {
 
             //todo: it's able to setup a time. try to run a timer with proper hour and minute time.
             //todo: ********************for now, May 27, 2020. Change this back to the bottom mTimeLestInMillis.*********************
-            mTimeLeftInMillis = Integer.parseInt(countdownMinute) * 1000;
-            //mTimeLeftInMillis = totalTime(countdownHour, countdownMinute);
+            //mTimeLeftInMillis = Integer.parseInt(countdownMinute) * 1000;
+            mTimeLeftInMillis = totalTime(countdownHour, countdownMinute);
 
             startTimer();
         }
@@ -95,7 +97,7 @@ public class CountdownActivity extends AppCompatActivity {
             }
         });
 
-        updateTimer();
+        //updateTimer();
     }
 
     @Override
@@ -204,6 +206,48 @@ public class CountdownActivity extends AppCompatActivity {
 //        return totalTime;
     }
 
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//
+//        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = prefs.edit();
+//
+//        editor.putLong("millisLeft", mTimeLeftInMillis);
+//        editor.putBoolean("timerRunning", mTimerRunning);
+//        editor.putLong("endTime", mEndTime);
+//
+////        pauseTimer();
+//        editor.apply();
+//    }
+//
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+//
+//        mTimeLeftInMillis = prefs.getLong("millisLeft", 600000);
+//        mTimerRunning = prefs.getBoolean("timerRunning", false);
+//
+//        updateTimer();
+//        updateButtons();
+//
+//        if (mTimerRunning){
+//            mEndTime = prefs.getLong("endTime", 0);
+//            mTimeLeftInMillis = mEndTime - System.currentTimeMillis();
+//
+//            if (mTimeLeftInMillis < 0){
+//                mTimeLeftInMillis = 0;
+//                mTimerRunning = false;
+//                updateTimer();
+//                updateButtons();
+//            } else {
+//                startTimer();
+//            }
+//        }
+//    }
+//
 //    private void updateButtons(){
 //        if (mTimerRunning){
 //            startButton.setVisibility(View.INVISIBLE);
@@ -211,8 +255,6 @@ public class CountdownActivity extends AppCompatActivity {
 //        } else {
 //            startButton.setVisibility(View.VISIBLE);
 //            pauseButton.setVisibility(View.INVISIBLE);
-//
-////            if (mTime)
 //        }
 //    }
 }
