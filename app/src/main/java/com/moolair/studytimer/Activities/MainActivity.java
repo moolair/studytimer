@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         //interstitial Admob
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId("ca-app-pub-8927512082902017/5298020641");
-//        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712"); //for testing
+//        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712"); for testing
         interstitialAd.loadAd(new AdRequest.Builder().build());
 
         interstitialAd.setAdListener(new AdListener(){
