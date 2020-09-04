@@ -13,10 +13,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-//import com.google.android.gms.ads.AdRequest;
-//import com.google.android.gms.ads.AdView;
-import com.facebook.ads.AdSize;
-import com.facebook.ads.AdView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.moolair.studytimer.Data.DBHandler;
 import com.moolair.studytimer.R;
 
@@ -46,7 +44,7 @@ public class CountdownActivity extends AppCompatActivity {
     private DBHandler db;
     private int calculateTotal;
 
-    //AdView
+//    //AdView
     private AdView adView;
 
     @Override
@@ -55,22 +53,10 @@ public class CountdownActivity extends AppCompatActivity {
         setContentView(R.layout.activity_countdown);
 
         //AdMob implementation
-//        adView = findViewById(R.id.adView);
-//        AdRequest adRequest = new AdRequest.Builder().build();
-//        adView.loadAd(adRequest);
+        adView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
-        //-------------Facebook Adview Banner START--------------------------
-        adView = new AdView(this, "IMG_16_9_APP_INSTALL#323685912162312_323718938825676", AdSize.BANNER_HEIGHT_50);
-
-        // Find the Ad Container
-        LinearLayout adContainer = (LinearLayout) findViewById(R.id.banner_container);
-
-        // Add the ad view to your activity layout
-        adContainer.addView(adView);
-
-        // Request an ad
-        adView.loadAd();
-        //-------------Facebook Adview Banner END--------------------------
 
         ActionBar actionBar = getSupportActionBar();
 
@@ -116,14 +102,6 @@ public class CountdownActivity extends AppCompatActivity {
         });
 
         //updateTimer();
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (adView != null) {
-            adView.destroy();
-        }
-        super.onDestroy();
     }
 
     @Override
