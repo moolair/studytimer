@@ -79,8 +79,8 @@ public class CountdownActivity extends AppCompatActivity {
 
             //todo: it's able to setup a time. try to run a timer with proper hour and minute time.
             //todo: ********************for now, May 27, 2020. Change this back to the bottom mTimeLestInMillis.*********************
-            mTimeLeftInMillis = Integer.parseInt(countdownMinute) * 1000;
-            //mTimeLeftInMillis = totalTime(countdownHour, countdownMinute);
+            //mTimeLeftInMillis = Integer.parseInt(countdownMinute) * 1000;
+            mTimeLeftInMillis = totalTime(countdownHour, countdownMinute);
 
             startTimer();
         }
@@ -102,6 +102,14 @@ public class CountdownActivity extends AppCompatActivity {
         });
 
         //updateTimer();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
     }
 
     @Override
