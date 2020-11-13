@@ -249,9 +249,10 @@ public class MainActivity extends AppCompatActivity {
         //before going to rest, let's interstitial Admob
         if (interstitialAd.isLoaded()) {
             interstitialAd.show();
-        } else {
-            Log.d("TAG", "The interstitial wasn't loaded yet.");
         }
+//        else {
+//            Log.d("TAG", "The interstitial wasn't loaded yet.");
+//        }
     }
 
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(
